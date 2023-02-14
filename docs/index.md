@@ -25,10 +25,10 @@
 
 # Autores
 
-* Aluno 1
-* Aluno 2
-* Aluno 3
-* Aluno 4
+* Carol Carvalho
+* Enzo Cecone
+* Enzo Fiorelli
+* Marcus Vinicius
 * Aluno 5
 * Aluno 6
 * Aluno 7
