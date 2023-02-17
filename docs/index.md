@@ -29,11 +29,6 @@
 * Enzo Cecone
 * Enzo Fiorelli
 * Marcus Vinicius
-* Aluno 5
-* Aluno 6
-* Aluno 7
-* Aluno 8
-
 
 # Descrição do projeto
 
@@ -41,7 +36,7 @@
 
 # Diagrama de casos de uso
 
-*&lt;Diagrama de casos de uso&gt;*
+![Captura de tela 2023-02-16 220433](https://user-images.githubusercontent.com/83656921/219533468-f5aa7e4b-60dd-46e3-9038-66cb2408538a.png)
 
 # Descrição dos casos de uso
 
