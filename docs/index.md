@@ -25,7 +25,7 @@
 
 # Autores
 
-* Carol Carvalho
+* Carolina Carvalho
 * Enzo Cecone
 * Enzo Fiorelli
 * Marcus Vinicius
