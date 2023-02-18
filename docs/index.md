@@ -40,7 +40,56 @@
 
 # Descrição dos casos de uso
 
-*&lt;Descrição dos casos de uso&gt;*
+## CASO 01 - Registrar faltas
+Identificador   | CASO 01
+--------- | ------
+Nome | Registrar faltas
+Atores | Professor
+Sumário | O professor acessa a lista de alunos daquela turma, onde cada nome é clicável para realizar a ação de inserir uma falta naquela aula.
+Complexidade | Fácil
+Regras de negócio | Lançar falta para o aluno que não compareceu à aula.
+
+### Fluxo principal
+Ação do ator   | Ações do sistema
+------ | ------
+-------- |1-O sistema mostra a lista de turmas existentes para o professor;
+2-O professor escolhe a turma que está em aula no momento; | --------
+-------- | 3-O sistema mostra a lista dos alunos da turma selecionada;
+4-O professor clica no nome do(s) aluno(s) faltantes; | --------
+5-O clica no botão de confirmação; | --------
+------ | 6-O sistema salva a lista, marcando quem faltou ou não.
+
+## CASO 02 - Gerar relatório
+Identificador   | CASO 02
+--------- | ------
+Nome | Gerar relatório
+Atores | Professor
+Sumário | O professor escolhe gerar o relatório do dia/ mês/ semestre/ ano. Com isso, recebe um arquivo com a quantidade consolidada de faltas de cada aluno.
+Complexidade | Fácil
+Regras de negócio | N/D
+
+### Fluxo principal
+Ação do ator   | Ações do sistema
+------ | ------
+1-O professor entra na área da turma na qual deseja gerar o relatório; | ---------
+2-O professor clica no botão para gerar o relatório; | --------
+-------- | 3-O sistema baixa na máquina do professor um arquivo com todas as informações necessárias;
+
+## CASO 03 - Enviar notificação
+Identificador   | CASO 03
+--------- | ------
+Nome | Enviar notificação
+Atores | Professor, responsável
+Sumário | Com o professor gerando o relatório, ele terá o opção de enviar um email para os responsáveis dos alunos que faltaram mais de 20% das aulas.
+Complexidade | Fácil
+Regras de negócio | O envio dos emails será apenas para os pais ou responsáveis daqueles alunos que tem mais de 20% de faltas.
+
+### Fluxo principal
+Ação do ator   | Ações do sistema
+------ | ------
+1-O professor entra na área da turma na qual deseja enviar o email para os responsáveis; | ---------
+-------- | 3-O sistema dispara os emails para os responsáveis dos alunos que faltaram mais de 20% nas aulas;
+-------- | 3-O sistema confirma o envio dos emails para os pais e responsáveis.
 
 # Protótipos de tela
 
