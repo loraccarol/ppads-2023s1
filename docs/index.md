@@ -32,7 +32,7 @@
 
 # Descrição do projeto
 
-*&lt;Descrição do projeto&gt;*
+*O nosso projeto se baseia em um "Sistema de Presença" requisitado pela Escola Octógono, usufruiremos da programação para montar um software capaz de atender os requisitos levantados pela escola, para que os professores possam realizar o registramento de faltas de uma maneira muito mais prática e intuitiva, e também que os usuários da plataforma (alunos) possam analisar os seus dados, e suas próprias quantidades de faltas, com o objetivo de ter um controle maior de frequência. Vamos utilizar o Java como ferramenta para nos auxilixar na construção do Sistema, onde ao executar o programa, o administrador registrará a falta, logo depois o software armazena esses dados registrados em algum tipo de dicionário ou bando de dados, e em seguida apresenta os mesmos para uma visualização, dependendo da pesquisa que o usuário fazer.*
 
 # Diagrama de casos de uso
 
