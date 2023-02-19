@@ -15,7 +15,7 @@ Este repositório define um modelo (*template*) que deve ser seguido por cada gr
 
 # Documentação
 
-Os arquivos da documentação deste projeto estão na pasta [/docs](/docs), e o seu conteúdo é publicado em **https://loraccarol.github.io/ppads-2023s1**.
+Os arquivos da documentação deste projeto estão na pasta [/docs](/docs), e o seu conteúdo é publicado em **https://github.com/loraccarol/ppads-2023s1**.
 
 # Releases
 
