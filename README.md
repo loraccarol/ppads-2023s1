@@ -5,9 +5,9 @@
 
 Este repositório define um modelo (*template*) que deve ser seguido por cada grupo para o projeto.
 
-# Projeto: *<Missed_Class>*
+# Projeto: *Missed_Class*
 
-# Grupo: *<Mosqueteiros>*
+# Grupo: *Mosqueteiros*
 
 # Descrição
 
