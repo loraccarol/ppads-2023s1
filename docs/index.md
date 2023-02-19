@@ -93,7 +93,7 @@ Ação do ator   | Ações do sistema
 
 # Protótipos de tela
 
-*&lt;Protótipos de tela&gt;*
+[Protótipos de tela](https://www.figma.com/file/bnWN9wIuNmcpFIAMhgN5sW/projeto-ads?node-id=0%3A1&t=ENkTUwl8w1NcEsXd-1)
 
 # Modelo de domínio
 
