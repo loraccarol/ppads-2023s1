@@ -1,11 +1,7 @@
 <h2><a href= "https://www.mackenzie.br">Universidade Presbiteriana Mackenzie</a></h2>
 <h3><a href= "https://www.mackenzie.br/graduacao/sao-paulo-higienopolis/sistemas-de-informacao">Sistemas de Informação</a></h3>
 
-# Template para Prática Profissional em ADS
-
-Este repositório define um modelo (*template*) que deve ser seguido por cada grupo para o projeto.
-
-# Projeto: *Missed_Class*
+# Projeto: *Missed Class*
 
 # Grupo: *Mosqueteiros*
 
