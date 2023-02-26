@@ -90,7 +90,7 @@ Ação do ator   | Ações do sistema
 
 # Modelo de domínio
 
-*&lt;Modelo de domínio&gt;*
+![image](https://user-images.githubusercontent.com/83656921/221442255-26e7093e-ab3a-4179-b720-e4d251adad52.png)
 
 # Decisões de arquitetura
 
