@@ -7,7 +7,7 @@
 
 # Descrição
 
-*O nosso projeto se baseia em um "Sistema de Presença" requisitado pela Escola Octógono, usufruiremos da programação para montar um software capaz de atender os requisitos levantados pela escola, para que os professores possam realizar o resgistro de faltas de uma maneira muito mais prática e intuitiva, com o objetivo de ter um controle maior de frequência dos alunos. Vamos utilizar o SpringBoot e o React JS como ferramentas para nos auxilixar na construção do Sistema, onde ao executar o programa, o professor registrará a falta, logo depois o software armazena esses dados registrados em um bando de dados, e em seguida apresenta os mesmos para uma visualização, dependendo da pesquisa que o usuário fazer.*
+*O nosso projeto se baseia em um "Sistema de Presença" requisitado pela Escola Octógono, usufruiremos da programação para montar um software capaz de atender os requisitos levantados pela escola, para que os professores possam realizar o registro de faltas de uma maneira muito mais prática e intuitiva, com o objetivo de ter um controle maior de frequência dos alunos. Vamos utilizar o SpringBoot e o React JS como ferramentas para nos auxilixar na construção do Sistema, onde ao executar o programa, o professor registrará a falta, logo depois o software armazena esses dados registrados em um bando de dados, e em seguida apresenta os mesmos para uma visualização, dependendo da pesquisa que o usuário fazer.*
 
 # Documentação
 
