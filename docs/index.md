@@ -94,7 +94,7 @@ Ação do ator   | Ações do sistema
 
 # Decisões de arquitetura
 
-*&lt;Decisões de arquitetura&gt;*
+Para o nosso projeto, com uma abordagem monolítica, vamos utilizar as tecnologias Spring Boot, ReactJS e PostgreSQL. O Spring Boot é um framework para desenvolvimento de aplicações em Java que facilita a criação de APIs RESTful e aplicações web. O ReactJS é uma biblioteca JavaScript para construção de interfaces de usuário interativas. O PostgreSQL é um sistema gerenciador de banco de dados relacional de código aberto.
 
 # Diagrama de implantação
 
