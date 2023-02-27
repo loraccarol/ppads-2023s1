@@ -11,7 +11,7 @@
 
 # Documentação
 
-Os arquivos da documentação deste projeto estão na pasta [/docs](/docs).
+Os arquivos da documentação deste projeto estão na pasta [/docs](/docs), e o seu conteúdo é publicado em https://loraccarol.github.io/ppads-2023s1.
 
 # Releases
 
