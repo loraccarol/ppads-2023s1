@@ -1,14 +1,13 @@
-import logo from './icons/logo.svg';
-import './App.css';
+import './App.css'
+import Login from './pages/Login.js'
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-      </header>
+      <Login/>
     </div>
   );
 }
 
-export default App;
+export default App
