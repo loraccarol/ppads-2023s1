@@ -1,6 +1,8 @@
+import React from "react"
 import logo from '../icons/logo.svg'
 
-function Login() {
+///function Login() {
+  const Login = () =>{
     return (
       <div className='App'>
         <header className='Logo-img'>
