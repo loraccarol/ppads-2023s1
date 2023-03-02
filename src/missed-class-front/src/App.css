@@ -1,8 +1,24 @@
+@font-face{
+    font-family: 'Montagu Slab';
+    src: local('Montagu Slab'), url('../src/fonts/MontaguSlab144pt-Medium.ttf') format('truetype');
+    
+}
+
+@media screen {
+    
+}
+
 .App{
     height: 100vh;
-    width: 100%;
+    max-width: 100vw;
     background-color: #C3E4E9;
     text-align: center;
+    font-family: Montagu Slab, serif;
+    font-style: normal;
+    font-size: 14px ;
+    color: #5D6366;
+    
+
     
 }
 
@@ -18,16 +34,39 @@
     margin-top: 30px;
 }
 
-.Campo{
-    padding: 12px;
-    border-radius: 5px;
-    border: 0px solid;
-    width: 20%;
+.Boxes{
+    display: block;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    max-width: 100vw;
+    
+
+}
+.Campo label{
+    display: grid;
+    font-size: 10px;
+    margin-top: 10px;
+    margin-right: 130px;
+
     
 }
+.Campo{
+    width: fit-content;
+    margin: auto;
+}
+.Campo input{
+    padding: 10px;
+    border-radius: 5px;
+    border: 0px solid;
+}
 
-.Campo::placeholder{
+.Campo input::placeholder{
     color:rgb(185, 185, 185);
+    font-family: Montagu Slab, serif;
+    font-style: normal;
+    font-size: 10px ;
+
 }
 
 .btn{
@@ -35,7 +74,11 @@
     padding: 10px;
     border-radius: 5px;
     border: 0px solid;
-    width: 22%;
+    width: 25%;
     background-color: #48BDC2;
+    font-family: Montagu Slab, serif;
+    font-style: normal;
+    font-size: 11px ;
+    color: #5D6366;
 
 }
