@@ -1,13 +1,17 @@
 import React from "react"
-
 import logo from '../icons/logo.svg'
+import styled from 'styled-components'
+
+const LogoImg = styled.img`
+  margin-top: 50px;
+`
 
 ///function Login() {
   const Login = () =>{
     return (
       <div className='Login'>
-        <header className='Logo-img'>
-          <img src={logo} className='logo 'alt="logo" />
+        <header>
+          <LogoImg src={logo} alt="logo"/>
         </header>
         <p>
           Fazer Login
@@ -23,9 +27,14 @@ import logo from '../icons/logo.svg'
           </FormControl> */}
           <div className='Campo'>
           <label htmlFor='password'>Senha</label> 
-            <input  type='senha' placeholder="Senha"/>
+            <input  type='senha' placeholder="Digite sua senha"/>
+            <p className="Animation">
+            <a href=''>
+            <button className='btn' type='button' value='Turmas'>Entrar</button>
+            </a>
+            </p>
           </div>
-          <p><button className='btn' type='submit'>Entrar</button></p>
+          {/* <p><button className='btn' type='submit'>Entrar</button></p> */}
         </div>
         
        
