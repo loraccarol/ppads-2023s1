@@ -1,12 +1,15 @@
+CREATE DATABASE escola_octogono_db;
 
-CREATE TABLE public.grade_horarios (
+use escola_octogono_db; 
+
+CREATE TABLE grade_horarios (
     id bigint NOT NULL,
     disciplina_codigo bigint,
     professor_drt bigint,
     turma_id bigint
 );
 
-CREATE TABLE public.turma (
+CREATE TABLE turma (
     id bigint NOT NULL,
     ano integer,
     codigo character varying(255)
@@ -19,7 +22,7 @@ INSERT INTO turma (id, ano, codigo) VALUES (4,3,'3A');
 INSERT INTO turma (id, ano, codigo) VALUES (5,4,'4A');
 INSERT INTO turma (id, ano, codigo) VALUES (6,5,'5A');
 
-CREATE TABLE public.disciplina (
+CREATE TABLE disciplina (
     codigo bigint NOT NULL,
     nome character varying(255)
 );
@@ -33,7 +36,7 @@ insert into disciplina (codigo, nome) values (6,'Geografia');
 insert into disciplina (codigo, nome) values (7,'Ed. Física');
 insert into disciplina (codigo, nome) values (8,'Inglês');
 
-CREATE TABLE public.professor (
+CREATE TABLE professor (
     drt bigint NOT NULL,
     nome character varying(255),
     tipo_funcao smallint
@@ -48,7 +51,7 @@ insert into professor (drt,nome,tipo_funcao) values (594167,'Olivia Pinto',1);
 insert into professor (drt,nome,tipo_funcao) values (532110,'Maria Luiza Peixoto',2);
 insert into professor (drt,nome,tipo_funcao) values (459558,'Calebe Peixoto',2);
 
-CREATE TABLE public.aluno (
+CREATE TABLE aluno (
     tia bigint NOT NULL,
     nome character varying(255),
     turma_id bigint
@@ -196,10 +199,10 @@ insert into aluno (tia, nome, turma_id) values(612687,'Samuel Ramos',6);
 insert into aluno (tia, nome, turma_id) values(570971,'Samuel Dias',6);
 insert into aluno (tia, nome, turma_id) values(635725,'Arthur Nascimento',6);
 
-CREATE TABLE public.aula (
+CREATE TABLE aula (
     id bigint NOT NULL,
     chamada smallint,
-    data timestamp(6) without time zone,
+    data timestamp(6),
     disciplina_codigo bigint,
     turma_id bigint
 );
@@ -242,7 +245,7 @@ insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (35,1,'
 insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (36,2,'2023-02-03',7,6);
 
 
-CREATE TABLE public.faltas (
+CREATE TABLE faltas (
     id bigint NOT NULL,
     aluno_tia bigint,
     aula_id bigint
@@ -253,4 +256,5 @@ insert into faltas (id, aluno_tia, aula_id) values (2,445035,2);
 insert into faltas (id, aluno_tia, aula_id) values (3,445035,14);
 insert into faltas (id, aluno_tia, aula_id) values (4,606569,3);
 insert into faltas (id, aluno_tia, aula_id) values (5,606569,17);
+
 
