@@ -8,7 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -16,16 +15,16 @@ public class Turma {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long codigo;
+    private Long id;
 
     @Column
     private Integer ano;
 
+    @Column
+    private String codigo;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "turma")
     private List<Aluno> alunos;
-
-    @ManyToOne
-    private Professor professor;
 
 
     public Integer getAno() {
@@ -44,21 +43,20 @@ public class Turma {
         this.alunos = alunos;
     }
 
-    public Professor getProfessor() {
-        return professor;
+    public Long getId() {
+        return id;
     }
 
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Long getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(Long codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
-    
 }

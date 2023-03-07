@@ -1,5 +1,8 @@
 package com.api.escolaoctogono.service.model;
 
+import com.api.escolaoctogono.service.model.enums.NumChamada;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,6 +22,13 @@ public class GradeHorarios {
     @ManyToOne
     private Disciplina disciplina;
 
+    @ManyToOne
+    private Turma turma;
+    
+    @Column
+    private NumChamada chamada;
+
+    
     public Long getId() {
         return id;
     }
@@ -42,6 +52,23 @@ public class GradeHorarios {
     public void setDisciplina(Disciplina disciplina) {
         this.disciplina = disciplina;
     }
+
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
+    }
+
+    public NumChamada getChamada() {
+        return chamada;
+    }
+
+    public void setChamada(NumChamada chamada) {
+        this.chamada = chamada;
+    }
+    
 
     
 }
