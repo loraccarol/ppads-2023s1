@@ -2,13 +2,6 @@ CREATE DATABASE escola_octogono_db;
 
 use escola_octogono_db; 
 
-CREATE TABLE grade_horarios (
-    id bigint NOT NULL,
-    disciplina_codigo bigint,
-    professor_drt bigint,
-    turma_id bigint
-);
-
 CREATE TABLE turma (
     id bigint NOT NULL,
     ano integer,
@@ -243,6 +236,13 @@ insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (33,1,'
 insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (34,2,'2023-02-03',1,5);
 insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (35,1,'2023-02-03',4,6);
 insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (36,2,'2023-02-03',7,6);
+
+CREATE TABLE grade_horarios (
+    id bigint NOT NULL,
+    disciplina_codigo bigint,
+    professor_drt bigint,
+    turma_id bigint
+);
 
 
 CREATE TABLE faltas (
