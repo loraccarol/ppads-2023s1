@@ -1,5 +1,6 @@
 package com.api.escolaoctogono.service.model;
 
+import com.api.escolaoctogono.service.model.enums.DiaDaSemana;
 import com.api.escolaoctogono.service.model.enums.NumChamada;
 
 import jakarta.persistence.Column;
@@ -27,6 +28,9 @@ public class GradeHorarios {
     
     @Column
     private NumChamada chamada;
+
+    @Column
+    private DiaDaSemana diaDaSemana;
 
     
     public Long getId() {

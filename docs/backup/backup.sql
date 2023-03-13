@@ -1,3 +1,11 @@
+DROP TABLE aluno CASCADE;
+DROP TABLE aula CASCADE;
+DROP TABLE disciplina CASCADE;
+DROP TABLE faltas CASCADE;
+DROP TABLE grade_horarios CASCADE;
+DROP TABLE professor CASCADE;
+DROP TABLE turma CASCADE;
+
 CREATE DATABASE escola_octogono_db;
 
 use escola_octogono_db; 
@@ -8,17 +16,58 @@ CREATE TABLE turma (
     codigo character varying(255)
 );
 
+CREATE TABLE disciplina (
+    codigo bigint NOT NULL,
+    nome character varying(255)
+);
+
+CREATE TABLE professor (
+    drt bigint NOT NULL,
+    nome character varying(255),
+    tipo_funcao smallint
+);
+
+CREATE TABLE aluno (
+    tia bigint NOT NULL,
+    nome character varying(255),
+    turma_id bigint
+);
+
+CREATE TABLE aluno (
+    tia bigint NOT NULL,
+    nome character varying(255),
+    turma_id bigint
+);
+
+
+CREATE TABLE aula (
+    id bigint NOT NULL,
+    chamada smallint,
+    data timestamp(6),
+    disciplina_codigo bigint,
+    turma_id bigint
+);
+
+CREATE TABLE grade_horarios (
+    id bigint NOT NULL,
+    disciplina_codigo bigint,
+    professor_drt bigint,
+    turma_id bigint
+);
+
+
+CREATE TABLE faltas (
+    id bigint NOT NULL,
+    aluno_tia bigint,
+    aula_id bigint
+);
+
 INSERT INTO turma (id, ano, codigo) VALUES (1,1,'1A');
 INSERT INTO turma (id, ano, codigo) VALUES (2,1,'1B');
 INSERT INTO turma (id, ano, codigo) VALUES (3,2,'2A');
 INSERT INTO turma (id, ano, codigo) VALUES (4,3,'3A');
 INSERT INTO turma (id, ano, codigo) VALUES (5,4,'4A');
 INSERT INTO turma (id, ano, codigo) VALUES (6,5,'5A');
-
-CREATE TABLE disciplina (
-    codigo bigint NOT NULL,
-    nome character varying(255)
-);
 
 insert into disciplina (codigo, nome) values (1,'Matemática');
 insert into disciplina (codigo, nome) values (2,'Português');
@@ -29,12 +78,6 @@ insert into disciplina (codigo, nome) values (6,'Geografia');
 insert into disciplina (codigo, nome) values (7,'Ed. Física');
 insert into disciplina (codigo, nome) values (8,'Inglês');
 
-CREATE TABLE professor (
-    drt bigint NOT NULL,
-    nome character varying(255),
-    tipo_funcao smallint
-);
-
 insert into professor (drt,nome,tipo_funcao) values (906753,'Maria Julia Caldeira',1);
 insert into professor (drt,nome,tipo_funcao) values (519105,'Davi Ramos',1);
 insert into professor (drt,nome,tipo_funcao) values (741687,'Davi Lucca Jesus',1);
@@ -43,12 +86,6 @@ insert into professor (drt,nome,tipo_funcao) values (120466,'Bárbara Lopes',1);
 insert into professor (drt,nome,tipo_funcao) values (594167,'Olivia Pinto',1);
 insert into professor (drt,nome,tipo_funcao) values (532110,'Maria Luiza Peixoto',2);
 insert into professor (drt,nome,tipo_funcao) values (459558,'Calebe Peixoto',2);
-
-CREATE TABLE aluno (
-    tia bigint NOT NULL,
-    nome character varying(255),
-    turma_id bigint
-);
 
 insert into aluno (tia, nome, turma_id) values(445035,'Isabel Melo',1);
 insert into aluno (tia, nome, turma_id) values(574783,'Isabelly Caldeira',1);
@@ -192,69 +229,54 @@ insert into aluno (tia, nome, turma_id) values(612687,'Samuel Ramos',6);
 insert into aluno (tia, nome, turma_id) values(570971,'Samuel Dias',6);
 insert into aluno (tia, nome, turma_id) values(635725,'Arthur Nascimento',6);
 
-CREATE TABLE aula (
-    id bigint NOT NULL,
-    chamada smallint,
-    data timestamp(6),
-    disciplina_codigo bigint,
-    turma_id bigint
-);
+insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, professor_drt, turma_id) values (1, 1, 2, 1, 906753, 4);
+insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, professor_drt, turma_id) values (2, 2, 2, 8, 459558, 4);
+insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, professor_drt, turma_id) values (3, 1, 3, 2, 519105, 4);
+insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, professor_drt, turma_id) values (4, 2, 3, 3, 741687, 4);
+insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, professor_drt, turma_id) values (5, 1, 4, 4, 124651, 4);
+insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, professor_drt, turma_id) values (6, 2, 4, 5, 120466, 4);
+insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, professor_drt, turma_id) values (7, 1, 5, 6, 594167, 4);
+insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, professor_drt, turma_id) values (8, 2, 5, 7, 532110, 4);
+insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, professor_drt, turma_id) values (9, 1, 6, 2, 519105, 4);
+insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, professor_drt, turma_id) values (10, 2, 6, 1, 906753, 4);
 
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (1,1,'2023-02-01',1,1);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (2,2,'2023-02-01',2,1);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (3,1,'2023-02-01',3,2);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (4,2,'2023-02-01',4,2);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (5,1,'2023-02-01',5,3);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (6,2,'2023-02-01',6,3);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (7,1,'2023-02-01',7,4);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (8,2,'2023-02-01',8,4);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (9,1,'2023-02-01',2,5);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (10,2,'2023-02-01',1,5);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (11,1,'2023-02-01',4,6);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (12,2,'2023-02-01',7,6);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (13,1,'2023-02-02',1,1);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (14,2,'2023-02-02',2,1);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (15,1,'2023-02-02',3,2);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (16,2,'2023-02-02',4,2);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (17,1,'2023-02-02',5,3);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (18,2,'2023-02-02',6,3);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (19,1,'2023-02-02',7,4);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (20,2,'2023-02-02',8,4);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (21,1,'2023-02-02',2,5);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (22,2,'2023-02-02',1,5);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (23,1,'2023-02-02',4,6);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (24,2,'2023-02-02',7,6);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (25,1,'2023-02-03',1,1);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (26,2,'2023-02-03',2,1);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (27,1,'2023-02-03',3,2);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (28,2,'2023-02-03',4,2);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (29,1,'2023-02-03',5,3);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (30,2,'2023-02-03',6,3);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (31,1,'2023-02-03',7,4);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (32,2,'2023-02-03',8,4);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (33,1,'2023-02-03',2,5);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (34,2,'2023-02-03',1,5);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (35,1,'2023-02-03',4,6);
-insert into aula (id, chamada, data, disciplina_codigo, turma_id) values (36,2,'2023-02-03',7,6);
-
-CREATE TABLE grade_horarios (
-    id bigint NOT NULL,
-    disciplina_codigo bigint,
-    professor_drt bigint,
-    turma_id bigint
-);
+insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, professor_drt, turma_id) values (11, 1, 2, 8, 459558, 6);
+insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, professor_drt, turma_id) values (12, 2, 2, 1, 906753, 6);
+insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, professor_drt, turma_id) values (13, 1, 3, 3, 741687, 6);
+insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, professor_drt, turma_id) values (14, 2, 3, 2, 519105, 6);
+insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, professor_drt, turma_id) values (15, 1, 6, 5, 120466, 6);
+insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, professor_drt, turma_id) values (16, 2, 6, 4, 124651, 6);
+insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, professor_drt, turma_id) values (17, 1, 5, 7, 532110, 6);
+insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, professor_drt, turma_id) values (18, 2, 5, 6, 594167, 6);
+insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, professor_drt, turma_id) values (19, 1, 6, 1, 906753, 6);
+insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, professor_drt, turma_id) values (20, 2, 6, 2, 519105, 6);
 
 
-CREATE TABLE faltas (
-    id bigint NOT NULL,
-    aluno_tia bigint,
-    aula_id bigint
-);
+insert into aula (id, chamada, data, dia_da_semana, turma_id) values (1,1,'2023-02-06', 2, 4);
+insert into aula (id, chamada, data, dia_da_semana, turma_id) values (2,2,'2023-02-06', 2, 4);
+insert into aula (id, chamada, data, dia_da_semana, turma_id) values (3,1,'2023-02-07', 3, 4);
+insert into aula (id, chamada, data, dia_da_semana, turma_id) values (4,2,'2023-02-07', 3, 4);
+insert into aula (id, chamada, data, dia_da_semana, turma_id) values (5,1,'2023-02-08', 4, 4);
+insert into aula (id, chamada, data, dia_da_semana, turma_id) values (6,2,'2023-02-08', 4, 4);
+insert into aula (id, chamada, data, dia_da_semana, turma_id) values (7,1,'2023-02-09', 5, 4);
+insert into aula (id, chamada, data, dia_da_semana, turma_id) values (8,2,'2023-02-09', 5, 4);
+insert into aula (id, chamada, data, dia_da_semana, turma_id) values (9,1,'2023-02-10', 6, 4);
+insert into aula (id, chamada, data, dia_da_semana, turma_id) values (10,2,'2023-02-10', 6, 4);
 
-insert into faltas (id, aluno_tia, aula_id) values (1,445035,1);
-insert into faltas (id, aluno_tia, aula_id) values (2,445035,2);
-insert into faltas (id, aluno_tia, aula_id) values (3,445035,14);
-insert into faltas (id, aluno_tia, aula_id) values (4,606569,3);
-insert into faltas (id, aluno_tia, aula_id) values (5,606569,17);
+insert into aula (id, chamada, data, dia_da_semana, turma_id) values (11,1,'2023-02-06', 2, 6);
+insert into aula (id, chamada, data, dia_da_semana, turma_id) values (12,2,'2023-02-06', 2, 6);
+insert into aula (id, chamada, data, dia_da_semana, turma_id) values (13,1,'2023-02-07', 3, 6);
+insert into aula (id, chamada, data, dia_da_semana, turma_id) values (14,2,'2023-02-07', 3, 6);
+insert into aula (id, chamada, data, dia_da_semana, turma_id) values (15,1,'2023-02-08', 4, 6);
+insert into aula (id, chamada, data, dia_da_semana, turma_id) values (16,2,'2023-02-08', 4, 6);
+insert into aula (id, chamada, data, dia_da_semana, turma_id) values (17,1,'2023-02-09', 5, 6);
+insert into aula (id, chamada, data, dia_da_semana, turma_id) values (18,2,'2023-02-09', 5, 6);
+insert into aula (id, chamada, data, dia_da_semana, turma_id) values (19,1,'2023-02-10', 6, 6);
+insert into aula (id, chamada, data, dia_da_semana, turma_id) values (20,2,'2023-02-10', 6, 6);
 
-
+insert into faltas (id, aluno_tia, aula_id) values (1, 892440, 1);
+insert into faltas (id, aluno_tia, aula_id) values (2, 222143, 2);
+insert into faltas (id, aluno_tia, aula_id) values (3, 892440, 2);
+insert into faltas (id, aluno_tia, aula_id) values (4, 319363, 13);
+insert into faltas (id, aluno_tia, aula_id) values (5, 319363, 14);
+insert into faltas (id, aluno_tia, aula_id) values (6, 319363, 20);

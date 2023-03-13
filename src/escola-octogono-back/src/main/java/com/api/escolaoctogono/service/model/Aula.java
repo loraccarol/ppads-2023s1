@@ -2,7 +2,7 @@ package com.api.escolaoctogono.service.model;
 
 import java.util.Date;
 
-import com.api.escolaoctogono.service.model.enums.NumChamada;
+import com.api.escolaoctogono.service.model.enums.DiaDaSemana;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,13 +22,14 @@ public class Aula {
     private Date data;
 
     @Column
-    private NumChamada chamada;
+    private DiaDaSemana diaDaSemana;
+
+    @Column
+    private Integer chamada;
 
     @ManyToOne
     private Turma turma;
 
-    @ManyToOne
-    private Disciplina disciplina;
 
     public Turma getTurma() {
         return turma;
@@ -52,14 +53,6 @@ public class Aula {
 
     public void setData(Date data) {
         this.data = data;
-    }
-
-    public NumChamada getChamada() {
-        return chamada;
-    }
-
-    public void setChamada(NumChamada chamada) {
-        this.chamada = chamada;
     }
 
 }
