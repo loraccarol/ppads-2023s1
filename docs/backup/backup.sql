@@ -1,10 +1,3 @@
-DROP TABLE aluno CASCADE;
-DROP TABLE aula CASCADE;
-DROP TABLE disciplina CASCADE;
-DROP TABLE faltas CASCADE;
-DROP TABLE grade_horarios CASCADE;
-DROP TABLE professor CASCADE;
-DROP TABLE turma CASCADE;
 
 CREATE DATABASE escola_octogono_db;
 
@@ -33,26 +26,21 @@ CREATE TABLE aluno (
     turma_id bigint
 );
 
-CREATE TABLE aluno (
-    tia bigint NOT NULL,
-    nome character varying(255),
-    turma_id bigint
-);
-
-
 CREATE TABLE aula (
     id bigint NOT NULL,
     chamada smallint,
     data timestamp(6),
-    disciplina_codigo bigint,
-    turma_id bigint
+    turma_id bigint,
+    dia_da_semana smallint
 );
 
 CREATE TABLE grade_horarios (
     id bigint NOT NULL,
     disciplina_codigo bigint,
     professor_drt bigint,
-    turma_id bigint
+    turma_id bigint,
+    dia_da_semana smallint,
+    chamada smallint
 );
 
 
