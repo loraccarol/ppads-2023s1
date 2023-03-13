@@ -45,7 +45,7 @@
 .Campo input{
     width: 350px;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     border: 0px solid;
     box-shadow: 2px 3px 3px rgb(111, 107, 107);
 }
@@ -62,7 +62,7 @@
     font-family: Arial, Helvetica, sans-serif;    
     padding: 10px;
     border: 0px solid;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #48BDC2;
     font-family: Montagu Slab, serif;
     font-style: normal;
@@ -88,4 +88,5 @@ Turmas */
     justify-content: center;
     align-items: center;
     text-align: center;
+
 }

@@ -1,7 +1,7 @@
 import './App.css'
-import Login from './pages/Login.js'
+// import Login from './pages/Login.js'
 import Turmas from './pages/Turmas.js'
-import styled from 'styled-components'
+// import styled from 'styled-components'
 
 
 function App() {
