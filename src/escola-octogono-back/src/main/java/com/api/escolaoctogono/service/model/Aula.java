@@ -2,14 +2,13 @@ package com.api.escolaoctogono.service.model;
 
 import java.util.Date;
 
-import com.api.escolaoctogono.service.model.enums.DiaDaSemana;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Aula {
@@ -22,14 +21,13 @@ public class Aula {
     private Date data;
 
     @Column
-    private DiaDaSemana diaDaSemana;
-
-    @Column
     private Integer chamada;
 
     @ManyToOne
     private Turma turma;
 
+    @OneToOne
+    private Disciplina disciplina;
 
     public Turma getTurma() {
         return turma;
