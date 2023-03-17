@@ -31,7 +31,7 @@ public class TurmaController {
         return new ResponseEntity<>(turmaService.getAllTurmas(), HttpStatus.OK);
     }
 
-    @PostMapping("/criar")
+    @PostMapping("/criar/turma")
     public ResponseEntity<Turma> criar(@RequestBody Turma turma) {
 
         Turma turmas = turmaService.adicionaTurma(turma);
