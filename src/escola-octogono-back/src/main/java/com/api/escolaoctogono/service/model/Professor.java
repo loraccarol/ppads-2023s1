@@ -2,11 +2,9 @@ package com.api.escolaoctogono.service.model;
 
 import com.api.escolaoctogono.service.model.enums.TipoFuncao;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Professor {
@@ -23,6 +21,9 @@ public class Professor {
 
     @Column(nullable = false)
     private TipoFuncao tipoFuncao;
+
+    @ManyToMany
+    private List<Turma> turmas;
 
     public TipoFuncao getTipoFuncao() {
         return tipoFuncao;

@@ -1,10 +1,8 @@
 package com.api.escolaoctogono.service.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Turma {
@@ -18,6 +16,9 @@ public class Turma {
 
     @Column
     private String codigo;
+
+    @ManyToMany(mappedBy = "turmas")
+    private List<Professor> professores;
 
     public Integer getAno() {
         return ano;
