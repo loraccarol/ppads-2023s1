@@ -78,15 +78,28 @@
 Turmas */
 
 .small-logo{
-    margin-top: 40px;      
+    margin-top: 40px; 
+    
+    
 }
 .logoleft{
     display: flex;
     margin-left: 50px;
+
+    width: 90%;
+    max-width: 1024px;
 }
 .container{
     justify-content: center;
-    align-items: center;
+    align-content: center;
     text-align: center;
 
+    width: 100%;
+    max-width: 1024px;
 }
+.box{
+    display: block;
+    width: 100%;
+    max-width: 1024px;
+} 
+

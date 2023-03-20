@@ -12,25 +12,39 @@ const Opcao = styled.li`
   text-align: center;
   height: 100%;
   padding: 0 5px;
-  min-width: 120px;
   margin: 30px;
+  
+  width: 100%;
+  min-width: 120px;
+  max-width: 1024px;
+  
 `
-const Container = styled.ul`
+const Container = styled.div`
   display: flex;
   justify-content: center;
+
+  width: 100%;
+  max-width: 1024px;
 `
 const Sub = styled.section`
-  font-size: 19px;
-`
-const Boxes1 = styled.div`
   display: flex;
   justify-content: center;
+  font-size: 18px;
+
+  width: 100%;
+  max-width: 1024px;
+`
+const Boxes1 = styled.div`
+  justify-content: center;
   align-items: center;
-  margin-top:50px;
+  display: flex;
+  grid-column-gap: 100px;
+  margin-top: 50px;
+
+  width: 100%;
+  max-width: 1024px;
 `
 const Box1 = styled.section`
-  margin: auto;
-  margin-right: 50px;
   width: 180px;
   padding: 20px;
   border-radius: 10px;
@@ -40,8 +54,6 @@ const Box1 = styled.section`
 }
 `
 const Box2 = styled.section`
-  margin: auto;
-  margin-left: 50px;
   width: 180px;
   padding: 20px;
   border-radius: 10px;
@@ -49,14 +61,48 @@ const Box2 = styled.section`
   box-shadow: 2px 3px 3px rgb(111, 107, 107);
   background-color:  #48BDC2;
 `
+const Box3 = styled.section`
+  width: 180px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 0px solid;
+  box-shadow: 2px 3px 3px rgb(111, 107, 107);
+  background-color:  #48BDC2;
+}
+`
 const Boxes2 = styled.div`
+  justify-content: center;
   align-items: center;
+  display: flex;
+  grid-column-gap: 100px;
+  margin-top: 50px;
+
+  width: 100%;
+  max-width: 1024px;
+`
+
+const Box4 = styled.section`
+  width: 180px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 0px solid;
+  box-shadow: 2px 3px 3px rgb(111, 107, 107);
+  background-color:  #48BDC2;
+`
+const Box5 = styled.section`
+  width: 180px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 0px solid;
+  box-shadow: 2px 3px 3px rgb(111, 107, 107);
+  background-color:  #48BDC2;
+}
 `
 
     // const Turmas = () =>{
     function Turmas() {
     return (
-      <div className="header">
+      <div className="container">
         <div className="logoleft">
           <img className="small-logo" src={logo} alt="logo" width='100px'/> 
           </div>
@@ -66,16 +112,17 @@ const Boxes2 = styled.div`
             ))}
            </Container>
            <Sub>Suas Turmas</Sub>
+           <div className='box'>
           <Boxes1>
-          <Box1>1 Ano</Box1>
+           <Box1>1 Ano</Box1>
            <Box2>2 Ano</Box2>
+           <Box3>3 Ano</Box3>
           </Boxes1>
           <Boxes2>
-          <Box3>3 Ano</Box3>
            <Box4>4 Ano</Box4>
            <Box5>5 Ano</Box5>
           </Boxes2>
-           
+           </div>  
       </div>
     );
   }
