@@ -11,10 +11,6 @@ import jakarta.persistence.ManyToOne;
 public class Aluno {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column
     private Long tia;
     
     @Column
@@ -22,14 +18,6 @@ public class Aluno {
 
     @ManyToOne
     private Turma turma;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getTia() {
         return tia;

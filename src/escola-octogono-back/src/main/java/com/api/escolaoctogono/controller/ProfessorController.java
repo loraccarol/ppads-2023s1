@@ -38,16 +38,16 @@ public class ProfessorController {
         return new ResponseEntity<>(novoProf, HttpStatus.CREATED);
     }
 
-    @PutMapping("/professor/{profId}")
-    public ResponseEntity<Professor> update(@PathVariable("profId") Long profId,
+    @PutMapping("/professor/{profDRT}")
+    public ResponseEntity<Professor> update(@PathVariable("profDRT") Long profDRT,
             @RequestBody Professor professor) throws RoleNotFoundException {
         Professor novoProf = professorService.atualizaProfessor(professor);
         return new ResponseEntity<>(novoProf, HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("/professor/{profId}")
-    public ResponseEntity<HttpStatus> delete(@PathVariable("profId") long profId) {
-        professorService.deleteProf(profId);
+    @DeleteMapping("/professor/{profDRT}")
+    public ResponseEntity<HttpStatus> delete(@PathVariable("profDRT") long profDRT) {
+        professorService.deleteProf(profDRT);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 

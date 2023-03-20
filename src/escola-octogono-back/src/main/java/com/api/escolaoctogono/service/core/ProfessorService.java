@@ -33,7 +33,7 @@ public class ProfessorService {
 
     public Professor atualizaProfessor(Professor professor) throws RoleNotFoundException {
 
-        Professor atuProfessor = professorRepository.findById(professor.getId())
+        Professor atuProfessor = professorRepository.findById(professor.getDrt())
         .orElseThrow(() -> new RoleNotFoundException("Não foi possível encontrar esse professor"));
 
         atuProfessor.setDrt(professor.getDrt());
@@ -44,8 +44,8 @@ public class ProfessorService {
         return novoProf;
     }
 
-    public void deleteProf(long profId) {
-        professorRepository.deleteById(profId);
+    public void deleteProf(long profDRT) {
+        professorRepository.deleteById(profDRT);
     }
     
 }

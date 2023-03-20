@@ -10,10 +10,6 @@ import java.util.List;
 public class Professor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column
     private Long drt;
     
     @Column
@@ -47,14 +43,6 @@ public class Professor {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
 }

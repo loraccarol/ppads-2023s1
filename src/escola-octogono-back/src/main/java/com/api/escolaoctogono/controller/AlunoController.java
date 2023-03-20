@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.management.relation.RoleNotFoundException;
+
 @RestController
 @RequestMapping("/alunos")
 public class AlunoController {
@@ -18,9 +20,9 @@ public class AlunoController {
     }
 
     @GetMapping("/{turmaId}")
-    public ResponseEntity<> getAlunos(@PathVariable("turmaId") Turma turmaId){
+    public ResponseEntity getAlunos(@PathVariable("turmaId") Turma turmaId){
 
-        return new ResponseEntity<>(aluno, HttpStatus.OK);
+        return new ResponseEntity<>(alunoService.getAlunos(turmaId), HttpStatus.OK);
     }
 
     @PostMapping ("/criar/{turmaId}")
@@ -28,5 +30,17 @@ public class AlunoController {
 
         Aluno novoAluno = alunoService.criaAluno(aluno, turmaId);
         return new ResponseEntity<>(novoAluno, HttpStatus.CREATED);
+    }
+    @PutMapping("/aluno/{alunoTia}")
+    public ResponseEntity<Aluno> update(@PathVariable("alunoTia") Long alunoTia,
+                                            @RequestBody Aluno aluno) throws RoleNotFoundException {
+        Aluno novoAluno = alunoService.atualizaAluno(aluno);
+        return new ResponseEntity<>(novoAluno, HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping("/aluno/{alunoTia}")
+    public ResponseEntity<HttpStatus> delete(@PathVariable("alunoTia") Long alunoTia) {
+        alunoService.deleteAluno(alunoTia);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }
