@@ -1,15 +1,21 @@
 import './App.css'
-// import Login from './pages/Login.js'
+import Login from './pages/Login.js'
 import Turmas from './pages/Turmas.js'
-// import styled from 'styled-components'
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Gerenciamento from './pages/Gerenciamento';
 
 function App() {
   return (
-    <div className="App">
-      {/* <Login/> */}
-      <Turmas/>
-    </div>
+    <Router basename='/'>
+      <div className='App'>
+        <Routes>
+          <Route exact path='/' element={<Login />} />
+          <Route path='/turmas' element={<Turmas />} />
+          <Route path='/gerenciamento' element={<Gerenciamento />} />
+        </Routes>
+      </div>
+
+    </Router>
   );
 }
 
