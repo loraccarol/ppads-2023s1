@@ -25,7 +25,7 @@ public class DisciplinaController {
     }
 
     @GetMapping("/{profDRT}")
-    public ResponseEntity getDisciplinas(@PathVariable("profDRT") Professor profDRT){
+    public ResponseEntity<Object> getDisciplinas(@PathVariable("profDRT") Professor profDRT){
         return new ResponseEntity<>(disciplinaService.getDisciplinas(profDRT), HttpStatus.OK);
     }
     @PostMapping("/criar/{profDRT}")

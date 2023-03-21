@@ -20,7 +20,7 @@ public class AlunoController {
     }
 
     @GetMapping("/{turmaId}")
-    public ResponseEntity getAlunos(@PathVariable("turmaId") Turma turmaId){
+    public ResponseEntity<Object> getAlunos(@PathVariable("turmaId") Turma turmaId){
 
         return new ResponseEntity<>(alunoService.getAlunos(turmaId), HttpStatus.OK);
     }
