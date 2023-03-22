@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton } from '@chakra-ui/react';
 
 export default function ModalCriar({ title, body, isopen, open, close }) {
