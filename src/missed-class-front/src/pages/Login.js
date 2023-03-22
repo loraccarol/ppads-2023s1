@@ -3,7 +3,7 @@ import logo from '../icons/logo.svg'
 import styled from 'styled-components'
 
 const LogoImg = styled.img`
-  margin-top: 50px;
+  width: 220px;
 `
 
 ///function Login() {
@@ -19,7 +19,7 @@ const LogoImg = styled.img`
         <div className='Boxes'>
          <div className='Campo'>
             <label htmlFor='user'>Usuário</label>
-            <input  type='usuario' placeholder="Drt"/>
+            <input  type='number' placeholder="Drt"/>
           </div> 
           {/* <FormControl width='50%' isRequired>
             <FormLabel>Usuário</FormLabel>
@@ -27,9 +27,9 @@ const LogoImg = styled.img`
           </FormControl> */}
           <div className='Campo'>
           <label htmlFor='password'>Senha</label> 
-            <input  type='senha' placeholder="Digite sua senha"/>
+            <input type='password' placeholder="Senha"/>
             <p className="Animation">
-            <a href=''>
+            <a href='/gerenciamento'>
             <button className='btn' type='button' value='Turmas'>Entrar</button>
             </a>
             </p>

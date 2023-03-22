@@ -1,8 +1,9 @@
 import React from "react"
-import logo from '../icons/logo.svg'
 import styled from "styled-components"
+import Header from "../components/Header"
+import { Flex } from "@chakra-ui/react"
 
-const title = ['Sistema de Chamada','Nome do Professor']
+const title = ['Sistema de Chamada', 'Nome do Professor']
 
 const Opcao = styled.li`
   font-size: 18px;
@@ -99,32 +100,33 @@ const Box5 = styled.section`
 }
 `
 
-    // const Turmas = () =>{
-    function Turmas() {
-    return (
-      <div className="container">
-        <div className="logoleft">
-          <img className="small-logo" src={logo} alt="logo" width='100px'/> 
-          </div>
-          <Container>
-            {title.map( (txt) => (
-              <Opcao>{txt}</Opcao>
-            ))}
-           </Container>
-           <Sub>Suas Turmas</Sub>
-           <div className='box'>
-          <Boxes1>
-           <Box1>1 Ano</Box1>
-           <Box2>2 Ano</Box2>
-           <Box3>3 Ano</Box3>
-          </Boxes1>
-          <Boxes2>
-           <Box4>4 Ano</Box4>
-           <Box5>5 Ano</Box5>
-          </Boxes2>
-           </div>  
+// const Turmas = () =>{
+function Turmas() {
+  return (
+    <Flex justifyContent={"center"}>
+
+    <div className="container">
+      <Header/>
+      <Container>
+        {title.map((txt) => (
+          <Opcao>{txt}</Opcao>
+        ))}
+      </Container>
+      <Sub>Suas Turmas</Sub>
+      <div className='box'>
+        <Boxes1>
+          <Box1>1 Ano</Box1>
+          <Box2>2 Ano</Box2>
+          <Box3>3 Ano</Box3>
+        </Boxes1>
+        <Boxes2>
+          <Box4>4 Ano</Box4>
+          <Box5>5 Ano</Box5>
+        </Boxes2>
       </div>
-    );
-  }
-  
-  export default Turmas
+    </div>
+    </Flex>
+  );
+}
+
+export default Turmas
