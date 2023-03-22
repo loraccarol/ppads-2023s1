@@ -1,98 +1,105 @@
-@font-face{
+@font-face {
     font-family: 'Montagu Slab';
     src: local('Montagu Slab'), url('../src/fonts/MontaguSlab144pt-Medium.ttf') format('truetype');
-    
 }
 
-@media screen {
-    
+@media screen {}
+
+* {
+    font-family: Montagu Slab, serif;
+    font-style: normal;
+    font-size: 14pt;
+    color: #5D6366;
 }
 
 html body {
     height: 100%;
     width: 100%;
-    background-color: #C3E4E9;
+    background-color: #C3E3E8;
 }
 
-.App{
+.App {
     text-align: center;
-    font-family: Montagu Slab, serif;
-    font-style: normal;
-    font-size: 14px ;
-    color: #5D6366;   
 }
 
-.Boxes{
+.Login {
+    margin: 2rem;
+    margin-bottom: 0;
+}
+
+.Login header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.Boxes {
     display: block;
     align-content: center;
     justify-content: center;
     align-items: center;
     max-width: 100vw;
     margin-top: 30px;
-    
-
 }
-.Campo label{
+
+.Campo label {
     display: grid;
-    font-size: 10px;
     margin-top: 10px;
-    margin-right: 320px;
-    
-
-    
+    margin-right: 270px;
 }
-.Campo{
+
+.Campo {
     max-width: fit-content;
     margin: auto;
 }
-.Campo input{
+
+.Campo input {
     width: 350px;
     padding: 10px;
     border-radius: 10px;
     border: 0px solid;
-    box-shadow: 2px 3px 3px rgb(111, 107, 107);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
-.Campo input::placeholder{
-    color:rgb(185, 185, 185);
+.Campo input::placeholder {
+    color: rgb(185, 185, 185);
     font-family: Montagu Slab, serif;
     font-style: normal;
-    font-size: 10px ;
-
 }
-.Campo button{
-    width: 370px;
-    font-family: Arial, Helvetica, sans-serif;    
+
+.Campo button {
+    width: 350px;
     padding: 10px;
     border: 0px solid;
     border-radius: 10px;
     background-color: #48BDC2;
-    font-family: Montagu Slab, serif;
-    font-style: normal;
-    font-size: 11px ;
-    color: #5D6366;
+    color: #3C4042;
     cursor: pointer;
     margin-top: 20px;
-    box-shadow: 2px 3px 3px rgb(111, 107, 107);
-    
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.Campo button:hover {
+    background-color: #3ea8ac;
+    transition-duration: 1s;
 }
 
 /* ----------------------------------------------------------------
 Turmas */
 
-.small-logo{
-    margin-top: 40px; 
-    
-    
+.small-logo {
+    margin-top: 40px;
 }
-.logoleft{
+
+.logoleft {
     display: flex;
     margin-left: 50px;
 
     width: 90%;
     max-width: 1024px;
 }
-.container{
+
+.container {
     justify-content: center;
     align-content: center;
     text-align: center;
@@ -100,9 +107,9 @@ Turmas */
     width: 100%;
     max-width: 1024px;
 }
-.box{
+
+.box {
     display: block;
     width: 100%;
     max-width: 1024px;
-} 
-
+}
