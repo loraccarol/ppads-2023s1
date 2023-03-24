@@ -28,7 +28,7 @@ public class ProfessorService {
     }
 
     public Professor adicionaProfessor(Professor professor) {
-        return professorRepository.save(professor);
+        return professorRepository.saveAndFlush(professor);
     }
 
     public Professor atualizaProfessor(Professor professor) throws RoleNotFoundException {
