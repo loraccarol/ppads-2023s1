@@ -1,9 +1,10 @@
-import { Grid, Flex, Tab, Tabs, TabList, TabPanel, TabPanels, useDisclosure, FormControl, Input, GridItem, FormLabel, Button } from "@chakra-ui/react";
+import { Text, Grid, Flex, Tab, Tabs, TabList, TabPanel, TabPanels, useDisclosure, FormControl, Input, GridItem, FormLabel, Button, Menu, MenuButton, Portal, MenuList, MenuItem, MenuDivider, NumberInput, NumberInputField, Select } from "@chakra-ui/react";
 import { useMemo, useState } from "react";
 import DataGridData from "../components/DataGridData";
 import Header from "../components/Header";
 import ModalCriar from "../components/ModalCriar";
 import { api } from "../service/api";
+import { TipoFuncao } from "../service/enum/TipoFuncao";
 
 export default function Gerenciamento() {
 
@@ -19,44 +20,91 @@ export default function Gerenciamento() {
     const addTurmas = useDisclosure();
     const addAlunos = useDisclosure();
 
-    useMemo(() => 
-    api.get('/professores/').then((response) => {
-        setProfessoresList(response.data)
-    }), [])
+    useMemo(() =>
+        api.get('/professores/').then((response) => {
+            setProfessoresList(response.data)
+        }), [])
 
+    const handleChangeProf = (e) => {
+        const value = e.target.value;
+        setProfessor({
+            ...professor,
+            [e.target.name]: value
+        });
+    };
 
     const handleCriarProf = (event) => {
         event.preventDefault();
 
-        let drt = 131230;
-        let nome = "kasjdlaskdal"
-        let tipoFuncao =1
-        api.post('/professores/criar/professor', {
-          drt,
-          nome,
-          tipoFuncao
-        })
-      }
+        const profData = {
+            drt: professor.drt,
+            nome: professor.nome,
+            tipoFuncao: professor.tipoFuncao
+        };
 
-    const columns = [
+        api.post('/professores/criar/professor', profData).then((response) => {
+            professoresList.push(response.data)
+            addProfs.onClose()
+        });
+    }
+
+    const profColumns = [
         { field: 'id', headerName: 'DRT', flex: 2 },
         {
             field: 'nome',
             headerName: 'Nome',
-            flex: 2,
-            editable: true,
+            flex: 3
         },
         {
             field: 'tipoFuncao',
             headerName: 'Função',
-            flex: 2,
-            editable: true,
+            flex: 1.5,
+            renderCell: (params) => {
+                return (
+                    <>
+                        <Text>{params.row.tipoFuncao === TipoFuncao.Professor1 ? "PROF. PRINCIPAL" : 
+                        params.row.tipoFuncao === TipoFuncao.Professor2 ? "PROF. ESPECÍFICO" : " - "}</Text>
+                    </>
+                )
+            }
+        },
+        {
+            field: 'acao',
+            headerName: 'Ação',
+            flex: 1,
+            renderCell: (params) => {
+                return (
+                    <>
+
+                        <Menu>
+                            <MenuButton
+                                as={Button}
+                                backgroundColor={"#C3E3E8"}
+                                p={5}
+                                borderRadius={"10px"}
+                                _hover={{ bg: '#3ea8ac' }}
+                                transition={"1s"}
+                                width={"80%"}
+                            >
+                                AÇÃO
+                            </MenuButton>
+                            <Portal>
+                                <MenuList backgroundColor={"#C3E3E8"} p={10} borderRadius={"10px"}>
+                                    <MenuItem _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Editar</MenuItem>
+                                    <MenuItem _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Deletar</MenuItem>
+                                </MenuList>
+                            </Portal>
+                        </Menu>
+                    </>
+
+                )
+            }
         }
     ];
 
-    let rows = []
+    let profRows = []
     professoresList.map(professor => {
-        rows.push({
+        profRows.push({
             id: professor.drt,
             nome: professor.nome,
             tipoFuncao: professor.tipoFuncao
@@ -83,26 +131,33 @@ export default function Gerenciamento() {
                             <TabPanel>
                                 <Flex justifyContent={"flex-start"} >
                                     <ModalCriar title={"Novo Professor"} body={
-                                        <Flex flexDirection={"column"}>
+                                        <Flex as={"form"} onSubmit={handleCriarProf} flexDirection={"column"}>
                                             <FormControl>
                                                 <FormLabel>DRT:</FormLabel>
-                                                <Input />
+                                                <NumberInput>
+                                                    <NumberInputField name="drt" onChange={handleChangeProf} />
+                                                </NumberInput>
                                             </FormControl>
-                                            <FormControl>
+                                            <FormControl mt={2}>
                                                 <FormLabel>Nome:</FormLabel>
-                                                <Input />
+                                                <Input
+                                                    name="nome"
+                                                    onChange={handleChangeProf} />
                                             </FormControl>
-                                            <FormControl>
+                                            <FormControl mt={2}>
                                                 <FormLabel>Tipo Função:</FormLabel>
-                                                <Input />
+                                                <Select name="tipoFuncao" onChange={handleChangeProf} placeholder='Selecionar'>
+                                                    <option value='0'>PROF. PRINCIPAL</option>
+                                                    <option value='1'>PROF. ESPECÍFICO</option>
+                                                </Select>
                                             </FormControl>
-                                            <FormControl>
-                                                <Button type="submit" onClick={handleCriarProf}>Criar</Button>
+                                            <FormControl mt={5} mb={4}>
+                                                <Button width={"100%"} type="submit" backgroundColor={"#C3E3E8"}>Criar</Button>
                                             </FormControl>
                                         </Flex>
                                     } isopen={addProfs.isOpen} open={addProfs.onOpen} close={addProfs.onClose} />
                                 </Flex>
-                                <DataGridData colunas={columns} linhas={rows} />
+                                <DataGridData {...professor} colunas={profColumns} linhas={profRows} />
                             </TabPanel>
                             <TabPanel>
                                 <Flex justifyContent={"flex-start"}>

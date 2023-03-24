@@ -9,7 +9,6 @@ export default function DataGridData({ colunas, linhas }) {
             MuiDataGrid: {
                 styleOverrides: {
                     root: {
-                        borderStyle: "solid",
                         borderRadius: 10,
                         backgroundColor: '#f0f0f0',
                         color: "#C1C2C5",
