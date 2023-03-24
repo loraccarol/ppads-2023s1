@@ -15,20 +15,38 @@ export default function Gerenciamento() {
         tipoFuncao: 0
     })
 
+    const [turmasList, setTurmasList] = useState([]);
+    const [turma, setTurma] = useState({
+        ano: 0,
+        codigo: "",
+    })
+
     const addProfs = useDisclosure();
     const addDisciplinas = useDisclosure();
     const addTurmas = useDisclosure();
     const addAlunos = useDisclosure();
 
-    useMemo(() =>
+    useMemo(() =>{
         api.get('/professores/').then((response) => {
             setProfessoresList(response.data)
-        }), [])
+        })
+        api.get('/turmas/').then((response) => {
+            setTurmasList(response.data)
+        })
+    }, [])
 
     const handleChangeProf = (e) => {
         const value = e.target.value;
         setProfessor({
             ...professor,
+            [e.target.name]: value
+        });
+    };
+
+    const handleChangeTurma = (e) => {
+        const value = e.target.value;
+        setTurma({
+            ...turma,
             [e.target.name]: value
         });
     };
@@ -47,6 +65,22 @@ export default function Gerenciamento() {
             addProfs.onClose()
         });
     }
+
+    const handleCriarTurma = (event) => {
+        event.preventDefault();
+
+        const turmaData = {
+            ano: turma.ano,
+            codigo: turma.codigo
+        };
+
+        api.post('/turmas/criar/turma', turmaData).then((response) => {
+            turmasList.push(response.data)
+            addTurmas.onClose()
+        });
+    }
+
+    console.log(turmasList);
 
     const profColumns = [
         { field: 'id', headerName: 'DRT', flex: 2 },
@@ -111,6 +145,53 @@ export default function Gerenciamento() {
         })
     })
 
+    const turmaColumns = [ 
+        { field: 'ano', headerName: 'Ano', flex: 2 },
+        { field: 'codigo', headerName: 'Código', flex: 2 },
+        {
+            field: 'acao',
+            headerName: 'Ação',
+            flex: 1,
+            renderCell: (params) => {
+                return (
+                    <>
+
+                        <Menu>
+                            <MenuButton
+                                as={Button}
+                                backgroundColor={"#C3E3E8"}
+                                p={5}
+                                borderRadius={"10px"}
+                                _hover={{ bg: '#3ea8ac' }}
+                                transition={"1s"}
+                                width={"80%"}
+                            >
+                                AÇÃO
+                            </MenuButton>
+                            <Portal>
+                                <MenuList backgroundColor={"#C3E3E8"} p={10} borderRadius={"10px"}>
+                                    <MenuItem _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Editar</MenuItem>
+                                    <MenuItem _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Deletar</MenuItem>
+                                </MenuList>
+                            </Portal>
+                        </Menu>
+                    </>
+
+                )
+            }
+        }
+    ]
+
+    let turmaRows = []
+    turmasList.map(turma => {
+        turmaRows.push({
+            id: turma.id,
+            ano: turma.ano,
+            codigo: turma.codigo
+        })
+    })
+
+
     return (
         <Flex justifyContent={"center"}>
             <Grid width={"70%"} height={"60%"}>
@@ -174,14 +255,25 @@ export default function Gerenciamento() {
                             <TabPanel>
                                 <Flex justifyContent={"flex-start"}>
                                     <ModalCriar title={"Nova Turma"} body={
-                                        <Flex>
+                                        <Flex as={"form"} onSubmit={handleCriarTurma} flexDirection={"column"}>
+                                            <FormControl>
+                                                <FormLabel>Ano:</FormLabel>
+                                                <NumberInput>
+                                                    <NumberInputField name="ano" onChange={handleChangeTurma} />
+                                                </NumberInput>
+                                            </FormControl>
                                             <FormControl>
                                                 <FormLabel>Código:</FormLabel>
-                                                <Input />
+                                                <Input name="codigo" onChange={handleChangeTurma}/>
+                                            </FormControl>
+                                            <FormControl mt={5} mb={4}>
+                                                <Button width={"100%"} type="submit" backgroundColor={"#C3E3E8"}>Criar</Button>
                                             </FormControl>
                                         </Flex>
+                                        
                                     } isopen={addTurmas.isOpen} open={addTurmas.onOpen} close={addTurmas.onClose} />
                                 </Flex>
+                                <DataGridData {...turma} colunas={turmaColumns} linhas={turmaRows} />
                             </TabPanel>
                             <TabPanel>
                                 <Flex justifyContent={"flex-start"}>
