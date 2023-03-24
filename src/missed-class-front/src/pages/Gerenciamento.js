@@ -1,58 +1,68 @@
-import { Grid, Flex, Tab, Tabs, TabList, TabPanel, TabPanels, useDisclosure, FormControl, Input, GridItem, FormLabel } from "@chakra-ui/react";
+import { Grid, Flex, Tab, Tabs, TabList, TabPanel, TabPanels, useDisclosure, FormControl, Input, GridItem, FormLabel, Button } from "@chakra-ui/react";
+import { useMemo, useState } from "react";
 import DataGridData from "../components/DataGridData";
 import Header from "../components/Header";
 import ModalCriar from "../components/ModalCriar";
+import { api } from "../service/api";
 
 export default function Gerenciamento() {
+
+    const [professoresList, setProfessoresList] = useState([]);
+    const [professor, setProfessor] = useState({
+        drt: 0,
+        nome: "",
+        tipoFuncao: 0
+    })
 
     const addProfs = useDisclosure();
     const addDisciplinas = useDisclosure();
     const addTurmas = useDisclosure();
     const addAlunos = useDisclosure();
 
+    useMemo(() => 
+    api.get('/professores/').then((response) => {
+        setProfessoresList(response.data)
+    }), [])
+
+
+    const handleCriarProf = (event) => {
+        event.preventDefault();
+
+        let drt = 131230;
+        let nome = "kasjdlaskdal"
+        let tipoFuncao =1
+        api.post('/professores/criar/professor', {
+          drt,
+          nome,
+          tipoFuncao
+        })
+      }
+
     const columns = [
-        { field: 'id', headerName: 'ID', flex: 2 },
+        { field: 'id', headerName: 'DRT', flex: 2 },
         {
-            field: 'firstName',
-            headerName: 'First name',
+            field: 'nome',
+            headerName: 'Nome',
             flex: 2,
             editable: true,
         },
         {
-            field: 'lastName',
-            headerName: 'Last name',
+            field: 'tipoFuncao',
+            headerName: 'Função',
             flex: 2,
             editable: true,
-        },
-        {
-            field: 'age',
-            headerName: 'Age',
-            type: 'number',
-            flex: 2,
-            editable: true,
-        },
-        {
-            field: 'fullName',
-            headerName: 'Full name',
-            description: 'This column has a value getter and is not sortable.',
-            sortable: false,
-            flex: 2,
-            valueGetter: (params) =>
-                `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-        },
+        }
     ];
 
-    const rows = [
-        { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-        { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-        { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-        { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-        { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-        { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-        { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-        { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-        { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-    ];
+    let rows = []
+    professoresList.map(professor => {
+        rows.push({
+            id: professor.drt,
+            nome: professor.nome,
+            tipoFuncao: professor.tipoFuncao
+        })
+    })
+
     return (
         <Flex justifyContent={"center"}>
             <Grid width={"70%"} height={"60%"}>
@@ -71,12 +81,23 @@ export default function Gerenciamento() {
                         </TabList>
                         <TabPanels>
                             <TabPanel>
-                                <Flex justifyContent={"flex-start"}>
+                                <Flex justifyContent={"flex-start"} >
                                     <ModalCriar title={"Novo Professor"} body={
-                                        <Flex>
+                                        <Flex flexDirection={"column"}>
+                                            <FormControl>
+                                                <FormLabel>DRT:</FormLabel>
+                                                <Input />
+                                            </FormControl>
                                             <FormControl>
                                                 <FormLabel>Nome:</FormLabel>
                                                 <Input />
+                                            </FormControl>
+                                            <FormControl>
+                                                <FormLabel>Tipo Função:</FormLabel>
+                                                <Input />
+                                            </FormControl>
+                                            <FormControl>
+                                                <Button type="submit" onClick={handleCriarProf}>Criar</Button>
                                             </FormControl>
                                         </Flex>
                                     } isopen={addProfs.isOpen} open={addProfs.onOpen} close={addProfs.onClose} />
