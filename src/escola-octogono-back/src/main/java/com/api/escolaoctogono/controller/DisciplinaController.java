@@ -10,6 +10,7 @@ import javax.management.relation.RoleNotFoundException;
 
 @RestController
 @RequestMapping("/disciplinas")
+@CrossOrigin(origins = "http://localhost:3000")
 public class DisciplinaController {
 
     private final DisciplinaService disciplinaService;

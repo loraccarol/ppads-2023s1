@@ -105,6 +105,14 @@ export default function Gerenciamento() {
         });
     }
 
+    const deleteProf = (drt) => {
+        api.delete(`/professores/professor/${drt}`).then(() => {
+            api.get('/professores/').then((response) => {
+                setProfessoresList(response.data)
+            })
+        })
+    }
+
     const handleCriarTurma = (event) => {
         event.preventDefault();
 
@@ -117,6 +125,14 @@ export default function Gerenciamento() {
             turmasList.push(response.data)
             addTurmas.onClose()
         });
+    }
+
+    const deleteTurma = (id) => {
+        api.delete(`/turmas/turma/${id}`).then(() => {
+            api.get('/turmas/').then((response) => {
+                setTurmasList(response.data)
+            })
+        })
     }
 
     const handleCriarDisciplina = (event) => {
@@ -133,6 +149,14 @@ export default function Gerenciamento() {
         });
     }
 
+    const deleteDisciplina = (cod) => {
+        api.delete(`/disciplinas/disciplina/${cod}`).then(() => {
+            api.get('/disciplinas/').then((response) => {
+                setDisciplinasList(response.data)
+            })
+        })
+    }
+
     const handleCriarAluno = (event) => {
         event.preventDefault();
 
@@ -146,6 +170,14 @@ export default function Gerenciamento() {
             alunosList.push(response.data)
             addAlunos.onClose()
         });
+    }
+
+    const deleteAluno = (tia) => {
+        api.delete(`/alunos/aluno/${tia}`).then(() => {
+            api.get('/alunos/').then((response) => {
+                setAlunosList(response.data)
+            })
+        })
     }
 
     const profColumns = [
@@ -175,7 +207,6 @@ export default function Gerenciamento() {
             renderCell: (params) => {
                 return (
                     <>
-
                         <Menu>
                             <MenuButton
                                 as={Button}
@@ -191,7 +222,7 @@ export default function Gerenciamento() {
                             <Portal>
                                 <MenuList backgroundColor={"#C3E3E8"} p={10} borderRadius={"10px"}>
                                     <MenuItem _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Editar</MenuItem>
-                                    <MenuItem _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Deletar</MenuItem>
+                                    <MenuItem onClick={() => deleteProf(params.row.id)} _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Deletar</MenuItem>
                                 </MenuList>
                             </Portal>
                         </Menu>
@@ -237,7 +268,7 @@ export default function Gerenciamento() {
                             <Portal>
                                 <MenuList backgroundColor={"#C3E3E8"} p={10} borderRadius={"10px"}>
                                     <MenuItem _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Editar</MenuItem>
-                                    <MenuItem _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Deletar</MenuItem>
+                                    <MenuItem onClick={() => deleteTurma(params.row.id)} _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Deletar</MenuItem>
                                 </MenuList>
                             </Portal>
                         </Menu>
@@ -287,7 +318,7 @@ export default function Gerenciamento() {
                             <Portal>
                                 <MenuList backgroundColor={"#C3E3E8"} p={10} borderRadius={"10px"}>
                                     <MenuItem _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Editar</MenuItem>
-                                    <MenuItem _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Deletar</MenuItem>
+                                    <MenuItem onClick={() => deleteDisciplina(params.row.id)} _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Deletar</MenuItem>
                                 </MenuList>
                             </Portal>
                         </Menu>
@@ -341,7 +372,7 @@ export default function Gerenciamento() {
                             <Portal>
                                 <MenuList backgroundColor={"#C3E3E8"} p={10} borderRadius={"10px"}>
                                     <MenuItem _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Editar</MenuItem>
-                                    <MenuItem _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Deletar</MenuItem>
+                                    <MenuItem onClick={() => deleteAluno(params.row.id)} _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Deletar</MenuItem>
                                 </MenuList>
                             </Portal>
                         </Menu>
@@ -383,7 +414,7 @@ export default function Gerenciamento() {
                                             <FormControl>
                                                 <FormLabel>DRT:</FormLabel>
                                                 <NumberInput>
-                                                    <NumberInputField name="drt" onChange={handleChangeProf} />
+                                                    <NumberInputField name="drt" defaultValue={professor.drt != 0 ? professor.drt : ""} onChange={handleChangeProf} />
                                                 </NumberInput>
                                             </FormControl>
                                             <FormControl mt={2}>

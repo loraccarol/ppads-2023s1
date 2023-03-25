@@ -11,6 +11,7 @@ import javax.management.relation.RoleNotFoundException;
 
 @RestController
 @RequestMapping("/alunos")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AlunoController {
 
     private final AlunoService alunoService;

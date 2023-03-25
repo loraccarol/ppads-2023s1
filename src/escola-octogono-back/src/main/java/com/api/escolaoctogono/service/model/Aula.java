@@ -2,13 +2,7 @@ package com.api.escolaoctogono.service.model;
 
 import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Aula {
@@ -23,7 +17,7 @@ public class Aula {
     @Column
     private Integer chamada;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Turma turma;
 
     @OneToOne
