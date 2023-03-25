@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.management.relation.RoleNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AlunoService {
@@ -20,6 +21,9 @@ public class AlunoService {
         this.turmaRepository = turmaRepository;
     }
 
+    public Optional<Aluno> getAluno(Long tia) {
+        return alunoRepository.findById(tia);
+    }
     public List<Aluno> getAll(){
         return alunoRepository.findAll();
     }

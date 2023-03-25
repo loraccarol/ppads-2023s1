@@ -24,6 +24,11 @@ public class DisciplinaController {
         return new ResponseEntity<>(disciplinaService.getAllDisciplinas(), HttpStatus.OK);
     }
 
+    @GetMapping("/{cod}")
+    public ResponseEntity<Object> getDisciplina(@PathVariable Long cod){
+        return new ResponseEntity<>(disciplinaService.getDisiciplina(cod), HttpStatus.OK);
+    }
+
     @PostMapping("/criar/disciplina")
     public ResponseEntity<Disciplina> criarDisciplina( @RequestBody Disciplina disciplina) {
 

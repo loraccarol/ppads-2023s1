@@ -25,6 +25,11 @@ public class TurmaController {
         return new ResponseEntity<>(turmaService.getAllTurmas(), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/{turmaId}", produces = {"application/json"})
+    public ResponseEntity<Object> getTurma(@PathVariable Long turmaId) {
+        return new ResponseEntity<>(turmaService.getTurmaById(turmaId), HttpStatus.OK);
+    }
+
     @PostMapping("/criar/turma")
     public ResponseEntity<Turma> criar(@RequestBody Turma turma) {
 

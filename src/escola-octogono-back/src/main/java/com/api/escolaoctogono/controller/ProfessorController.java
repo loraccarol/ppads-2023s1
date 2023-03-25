@@ -24,6 +24,11 @@ public class ProfessorController {
         return new ResponseEntity<>(professorService.getAllProfessores(), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/{profDRT}", produces = {"application/json"})
+    public ResponseEntity<Object> getProfessor(@PathVariable Long profDRT) {
+        return new ResponseEntity<>(professorService.getProfessor(profDRT), HttpStatus.OK);
+    }
+
     @PostMapping("/criar/professor")
     public ResponseEntity<Professor> criar(@RequestBody Professor professor) {
 

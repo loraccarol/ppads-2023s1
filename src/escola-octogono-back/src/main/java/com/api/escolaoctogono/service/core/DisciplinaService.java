@@ -1,19 +1,17 @@
 package com.api.escolaoctogono.service.core;
 
 import com.api.escolaoctogono.service.model.Disciplina;
-import com.api.escolaoctogono.service.model.Professor;
 import com.api.escolaoctogono.service.repository.DisciplinaRepository;
-import com.api.escolaoctogono.service.repository.ProfessorRepository;
 import org.springframework.stereotype.Service;
 
 import javax.management.relation.RoleNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DisciplinaService {
 
     private final DisciplinaRepository disciplinaRepository;
-//    private final ProfessorRepository professorRepository;
 
     public DisciplinaService(DisciplinaRepository disciplinaRepository) {
         this.disciplinaRepository = disciplinaRepository;
@@ -22,9 +20,10 @@ public class DisciplinaService {
     public List<Disciplina> getAllDisciplinas(){
         return disciplinaRepository.findAll();
     }
-//    public List<Disciplina> getDisciplinas(Professor professor){
-//        return disciplinaRepository.findAllByProfessorDrt(professor.getDrt());
-//    }
+
+    public Optional<Disciplina> getDisiciplina(Long cod) {
+        return disciplinaRepository.findById(cod);
+    }
 
     public Disciplina criaDisciplina(Disciplina disciplina){
         disciplina.setCodigo(disciplina.getCodigo());

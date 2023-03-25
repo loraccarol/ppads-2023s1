@@ -19,6 +19,9 @@ public class ProfessorService {
         this.professorRepository = professorRepository;
     }
 
+    public Professor getProfessor(Long profDRT){
+        return professorRepository.findByDrt(profDRT);
+    }
     public List<Professor> getAllProfessores(){
         return professorRepository.findAll();
     }
