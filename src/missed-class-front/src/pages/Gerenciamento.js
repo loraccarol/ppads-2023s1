@@ -1,11 +1,11 @@
-import { Text, Grid, Flex, Tab, Tabs, TabList, TabPanel, TabPanels, useDisclosure, FormControl, Input, GridItem, FormLabel, Button, Menu, MenuButton, Portal, MenuList, MenuItem, MenuDivider, NumberInput, NumberInputField, Select } from "@chakra-ui/react";
+import { Text, Grid, Flex, Tab, Tabs, TabList, TabPanel, TabPanels, useDisclosure, FormControl, Input, GridItem, FormLabel, Button, Menu, MenuButton, Portal, MenuList, MenuItem, NumberInput, NumberInputField, Select } from "@chakra-ui/react";
 import { useMemo, useState } from "react";
 import DataGridData from "../components/DataGridData";
 import Header from "../components/Header";
 import ModalCriar from "../components/ModalCriar";
 import { api } from "../service/api";
 import { TipoFuncao } from "../service/enum/TipoFuncao";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import Swal from "sweetalert2";
 
 export default function Gerenciamento() {
 
@@ -18,6 +18,7 @@ export default function Gerenciamento() {
 
     const [turmasList, setTurmasList] = useState([]);
     const [turma, setTurma] = useState({
+        id: 0,
         ano: 0,
         codigo: "",
     })
@@ -34,6 +35,8 @@ export default function Gerenciamento() {
         nome: "",
         turmaId: 0
     })
+
+    const [isEdit, setIsEdit] = useState(false);
 
     const addProfs = useDisclosure();
     const addDisciplinas = useDisclosure();
@@ -90,6 +93,17 @@ export default function Gerenciamento() {
         });
     };
 
+    function closeModalProf(){
+        setProfessor({
+            drt: 0,
+            nome: "",
+            tipoFuncao: 0
+        })
+
+        addProfs.onClose()
+        setIsEdit(false)
+    }
+
     const handleCriarProf = (event) => {
         event.preventDefault();
 
@@ -105,12 +119,70 @@ export default function Gerenciamento() {
         });
     }
 
-    const deleteProf = (drt) => {
-        api.delete(`/professores/professor/${drt}`).then(() => {
+    function editModalProf(drt) {
+        addProfs.onOpen()
+        api.get(`professores/${drt}`).then((response) => {
+            setProfessor(response.data);
+        })
+        setIsEdit(true)
+    }
+    
+    const handleEditProf = (event) => {
+        event.preventDefault();
+
+        const profData = {
+            drt: professor.drt,
+            nome: professor.nome.toUpperCase(),
+            tipoFuncao: professor.tipoFuncao
+        };
+
+        api.put(`/professores/professor/${professor.drt}`, profData).then((responseEdit) => {
+            setProfessor(responseEdit.data)
             api.get('/professores/').then((response) => {
                 setProfessoresList(response.data)
             })
+            addProfs.onClose()
         })
+    }
+
+    const deleteProf = (drt) => {
+        Swal.fire({
+            customClass: {
+            container: 'swal'
+            },
+            title: "Deseja excluir este professor?",
+            text: "Uma vez excluído, não será possível reverter",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            confirmButtonColor: 'black',
+            cancelButtonText: 'Cancelar',
+            reverseButtons: true
+        }).then(async (result) => {
+            if(result.isConfirmed) {
+                api.delete(`/professores/professor/${drt}`).then(() => {
+                    api.get('/professores/').then((response) => {
+                        setProfessoresList(response.data)
+                    })
+                }).catch(function(error) {
+                    Swal.fire({
+                        title: 'Algo deu errado',
+                        text: error
+                    })
+                })
+            }
+        })
+    }
+
+    function closeModalTurma(){
+        setTurma({
+            id: 0,
+            ano: 0,
+            codigo: "",
+        })
+
+        addTurmas.onClose()
+        setIsEdit(false)
     }
 
     const handleCriarTurma = (event) => {
@@ -127,12 +199,69 @@ export default function Gerenciamento() {
         });
     }
 
-    const deleteTurma = (id) => {
-        api.delete(`/turmas/turma/${id}`).then(() => {
+    function editModalTurma(cod) {
+        addTurmas.onOpen()
+        api.get(`turmas/${cod}`).then((response) => {
+            setTurma(response.data);
+        })
+        setIsEdit(true)
+    }
+    
+    const handleEditTurma = (event) => {
+        event.preventDefault();
+
+        const turmaData = {
+            id: turma.id,
+            ano: turma.ano,
+            codigo: turma.codigo.toUpperCase()
+        };
+
+        api.put(`/turmas/turma/${turma.id}`, turmaData).then((responseEdit) => {
+            setTurma(responseEdit.data)
             api.get('/turmas/').then((response) => {
                 setTurmasList(response.data)
             })
+            addTurmas.onClose()
         })
+    }
+
+    const deleteTurma = (id) => {
+        Swal.fire({
+            customClass: {
+            container: 'swal'
+            },
+            title: "Deseja excluir esta turma?",
+            text: "Uma vez excluído, não será possível reverter",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            confirmButtonColor: 'black',
+            cancelButtonText: 'Cancelar',
+            reverseButtons: true
+        }).then(async (result) => {
+            if(result.isConfirmed) {
+                api.delete(`/turmas/turma/${id}`).then(() => {
+                    api.get('/turmas/').then((response) => {
+                        setTurmasList(response.data)
+                    })
+                }).catch(function(error) {
+                    Swal.fire({
+                        title: 'Algo deu errado',
+                        text: 'Não foi possível excluir pois existem alunos nessa turma'
+                    })
+                })
+            }
+        })
+    }
+
+    function closeModalDisciplina(){
+        setDisciplina({
+            codigo: 0,
+            nome: ""
+        })
+
+        addDisciplinas.onClose()
+        setIsEdit(false)
     }
 
     const handleCriarDisciplina = (event) => {
@@ -149,12 +278,69 @@ export default function Gerenciamento() {
         });
     }
 
-    const deleteDisciplina = (cod) => {
-        api.delete(`/disciplinas/disciplina/${cod}`).then(() => {
+    function editModalDisciplina(cod) {
+        addDisciplinas.onOpen()
+        api.get(`/disciplinas/${cod}`).then((response) => {
+            setDisciplina(response.data);
+        })
+        setIsEdit(true)
+    }
+    
+    const handleEditDisciplina = (event) => {
+        event.preventDefault();
+
+        const disciplinaData = {
+            codigo: disciplina.codigo,
+            nome: disciplina.nome.toUpperCase()
+        };
+
+        api.put(`/disciplinas/disciplina/${disciplina.codigo}`, disciplinaData).then((responseEdit) => {
+            setDisciplina(responseEdit.data)
             api.get('/disciplinas/').then((response) => {
                 setDisciplinasList(response.data)
             })
+            addDisciplinas.onClose()
         })
+    }
+
+    const deleteDisciplina = (cod) => {
+        Swal.fire({
+            customClass: {
+            container: 'swal'
+            },
+            title: "Deseja excluir esta disciplina?",
+            text: "Uma vez excluído, não será possível reverter",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            confirmButtonColor: 'black',
+            cancelButtonText: 'Cancelar',
+            reverseButtons: true
+        }).then(async (result) => {
+            if(result.isConfirmed) {
+                api.delete(`/disciplinas/disciplina/${cod}`).then(() => {
+                    api.get('/disciplinas/').then((response) => {
+                        setDisciplinasList(response.data)
+                    })
+                }).catch(function(error) {
+                    Swal.fire({
+                        title: 'Algo deu errado',
+                        text: 'Não foi possível excluir'
+                    })
+                })
+            }
+        })
+    }
+
+    function closeModalAluno(){
+        setAluno({
+            tia: 0,
+            nome: "",
+            turmaId: 0
+        })
+
+        addAlunos.onClose()
+        setIsEdit(false)
     }
 
     const handleCriarAluno = (event) => {
@@ -172,11 +358,58 @@ export default function Gerenciamento() {
         });
     }
 
-    const deleteAluno = (tia) => {
-        api.delete(`/alunos/aluno/${tia}`).then(() => {
+    function editModalAluno(tia) {
+        addAlunos.onOpen()
+        api.get(`/alunos/${tia}`).then((response) => {
+            setAluno(response.data);
+        })
+        setIsEdit(true)
+    }
+    
+    const handleEditAluno = (event) => {
+        event.preventDefault();
+
+        const alunoData = {
+            tia: aluno.tia,
+            nome: aluno.nome.toUpperCase(),
+            turmaId: aluno.turmaId
+        };
+
+        api.put(`/alunos/aluno/${aluno.tia}`, alunoData).then((responseEdit) => {
+            setAluno(responseEdit.data)
             api.get('/alunos/').then((response) => {
                 setAlunosList(response.data)
             })
+            addAlunos.onClose()
+        })
+    }
+
+    const deleteAluno = (tia) => {
+        Swal.fire({
+            customClass: {
+            container: 'swal'
+            },
+            title: "Deseja excluir este aluno?",
+            text: "Uma vez excluído, não será possível reverter",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            confirmButtonColor: 'black',
+            cancelButtonText: 'Cancelar',
+            reverseButtons: true
+        }).then(async (result) => {
+            if(result.isConfirmed) {
+                api.delete(`/alunos/aluno/${tia}`).then(() => {
+                    api.get('/alunos/').then((response) => {
+                        setAlunosList(response.data)
+                    })
+                }).catch(function(error) {
+                    Swal.fire({
+                        title: 'Algo deu errado',
+                        text: 'Não foi possível excluir'
+                    })
+                })
+            }
         })
     }
 
@@ -221,7 +454,7 @@ export default function Gerenciamento() {
                             </MenuButton>
                             <Portal>
                                 <MenuList backgroundColor={"#C3E3E8"} p={10} borderRadius={"10px"}>
-                                    <MenuItem _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Editar</MenuItem>
+                                    <MenuItem onClick={() => editModalProf(params.row.id)} _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Editar</MenuItem>
                                     <MenuItem onClick={() => deleteProf(params.row.id)} _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Deletar</MenuItem>
                                 </MenuList>
                             </Portal>
@@ -267,7 +500,7 @@ export default function Gerenciamento() {
                             </MenuButton>
                             <Portal>
                                 <MenuList backgroundColor={"#C3E3E8"} p={10} borderRadius={"10px"}>
-                                    <MenuItem _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Editar</MenuItem>
+                                    <MenuItem onClick={() => editModalTurma(params.row.id)} _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Editar</MenuItem>
                                     <MenuItem onClick={() => deleteTurma(params.row.id)} _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Deletar</MenuItem>
                                 </MenuList>
                             </Portal>
@@ -317,7 +550,7 @@ export default function Gerenciamento() {
                             </MenuButton>
                             <Portal>
                                 <MenuList backgroundColor={"#C3E3E8"} p={10} borderRadius={"10px"}>
-                                    <MenuItem _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Editar</MenuItem>
+                                    <MenuItem onClick={() => editModalDisciplina(params.row.id)} _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Editar</MenuItem>
                                     <MenuItem onClick={() => deleteDisciplina(params.row.id)} _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Deletar</MenuItem>
                                 </MenuList>
                             </Portal>
@@ -371,7 +604,7 @@ export default function Gerenciamento() {
                             </MenuButton>
                             <Portal>
                                 <MenuList backgroundColor={"#C3E3E8"} p={10} borderRadius={"10px"}>
-                                    <MenuItem _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Editar</MenuItem>
+                                    <MenuItem onClick={() => editModalAluno(params.row.id)} _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Editar</MenuItem>
                                     <MenuItem onClick={() => deleteAluno(params.row.id)} _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Deletar</MenuItem>
                                 </MenuList>
                             </Portal>
@@ -388,7 +621,7 @@ export default function Gerenciamento() {
         alunoRows.push({
             id: aluno.tia,
             nome: aluno.nome,
-            turmaId: aluno.turma.codigo
+            turmaId: aluno.turma.ano + aluno.turma.codigo
         })
     })
 
@@ -410,15 +643,15 @@ export default function Gerenciamento() {
                             <TabPanel>
                                 <Flex justifyContent={"flex-start"} >
                                     <ModalCriar title={"Novo Professor"} body={
-                                        <Flex as={"form"} onSubmit={handleCriarProf} flexDirection={"column"}>
+                                        <Flex as={"form"} onSubmit={isEdit ? handleEditProf : handleCriarProf} flexDirection={"column"}>
                                             <FormControl>
-                                                <FormLabel>DRT:</FormLabel>
+                                                <FormLabel>DRT: {isEdit ? professor.drt : ""}</FormLabel>
                                                 <NumberInput>
-                                                    <NumberInputField name="drt" defaultValue={professor.drt != 0 ? professor.drt : ""} onChange={handleChangeProf} />
+                                                    <NumberInputField name="drt" onChange={handleChangeProf} />
                                                 </NumberInput>
                                             </FormControl>
                                             <FormControl mt={2}>
-                                                <FormLabel>Nome:</FormLabel>
+                                                <FormLabel>Nome: {isEdit ?  professor.nome : ""}</FormLabel>
                                                 <Input
                                                     name="nome"
                                                     onChange={handleChangeProf} />
@@ -431,70 +664,70 @@ export default function Gerenciamento() {
                                                 </Select>
                                             </FormControl>
                                             <FormControl mt={5} mb={4}>
-                                                <Button width={"100%"} type="submit" backgroundColor={"#C3E3E8"}>Criar</Button>
+                                                <Button width={"100%"} type="submit" backgroundColor={"#C3E3E8"}>{isEdit ? "Editar" : "Criar"}</Button>
                                             </FormControl>
                                         </Flex>
-                                    } isopen={addProfs.isOpen} open={addProfs.onOpen} close={addProfs.onClose} />
+                                    } isopen={addProfs.isOpen} open={addProfs.onOpen} close={closeModalProf}/>
                                 </Flex>
                                 <DataGridData {...professor} colunas={profColumns} linhas={profRows} />
                             </TabPanel>
                             <TabPanel>
                                 <Flex justifyContent={"flex-start"}>
                                     <ModalCriar title={"Nova Disciplina"} body={
-                                        <Flex as={"form"} onSubmit={handleCriarDisciplina} flexDirection={"column"}>
+                                        <Flex as={"form"} onSubmit={isEdit ? handleEditDisciplina : handleCriarDisciplina} flexDirection={"column"}>
                                             <FormControl>
-                                                <FormLabel>Código:</FormLabel>
+                                                <FormLabel>Código: {isEdit ? disciplina.codigo : ""}</FormLabel>
                                                 <NumberInput>
                                                     <NumberInputField name="codigo" onChange={handleChangeDisciplina} />
                                                 </NumberInput>
                                             </FormControl>
                                             <FormControl mt={2}>
-                                                <FormLabel>Nome:</FormLabel>
+                                                <FormLabel>Nome: {isEdit ? disciplina.nome : ""}</FormLabel>
                                                     <Input name="nome" onChange={handleChangeDisciplina} />
                                             </FormControl>
                                             <FormControl mt={5} mb={4}>
-                                                <Button width={"100%"} type="submit" backgroundColor={"#C3E3E8"}>Criar</Button>
+                                                <Button width={"100%"} type="submit" backgroundColor={"#C3E3E8"}>{isEdit ? "Editar" : "Criar"}</Button>
                                             </FormControl>
                                         </Flex>
-                                    } isopen={addDisciplinas.isOpen} open={addDisciplinas.onOpen} close={addDisciplinas.onClose} />
+                                    } isopen={addDisciplinas.isOpen} open={addDisciplinas.onOpen} close={closeModalDisciplina} />
                                 </Flex>
                                 <DataGridData {...disciplina} colunas={disciplinaColumns} linhas={disciplinaRows} />
                             </TabPanel>
                             <TabPanel>
                                 <Flex justifyContent={"flex-start"}>
                                     <ModalCriar title={"Nova Turma"} body={
-                                        <Flex as={"form"} onSubmit={handleCriarTurma} flexDirection={"column"}>
+                                        <Flex as={"form"} onSubmit={isEdit ? handleEditTurma : handleCriarTurma} flexDirection={"column"}>
                                             <FormControl>
-                                                <FormLabel>Ano:</FormLabel>
+                                                <FormLabel>Ano:{isEdit ? turma.ano : ""}</FormLabel>
                                                 <NumberInput>
                                                     <NumberInputField name="ano" onChange={handleChangeTurma} />
                                                 </NumberInput>
                                             </FormControl>
                                             <FormControl>
-                                                <FormLabel>Código:</FormLabel>
+                                                <FormLabel>Código:{isEdit ? turma.codigo : ""}</FormLabel>
                                                 <Input name="codigo" onChange={handleChangeTurma}/>
                                             </FormControl>
                                             <FormControl mt={5} mb={4}>
-                                                <Button width={"100%"} type="submit" backgroundColor={"#C3E3E8"}>Criar</Button>
+                                                <Button width={"100%"} type="submit" backgroundColor={"#C3E3E8"}>{isEdit ? "Editar" : "Criar"}</Button>
                                             </FormControl>
                                         </Flex>
                                         
-                                    } isopen={addTurmas.isOpen} open={addTurmas.onOpen} close={addTurmas.onClose} />
+                                    } isopen={addTurmas.isOpen} open={addTurmas.onOpen} close={closeModalTurma} />
                                 </Flex>
                                 <DataGridData {...turma} colunas={turmaColumns} linhas={turmaRows} />
                             </TabPanel>
                             <TabPanel>
                                 <Flex justifyContent={"flex-start"}>
                                     <ModalCriar title={"Novo Aluno"} body={
-                                        <Flex  as={"form"} onSubmit={handleCriarAluno} flexDirection={"column"}>
+                                        <Flex as={"form"} onSubmit={isEdit ? handleEditAluno : handleCriarAluno} flexDirection={"column"}>
                                             <FormControl>
-                                                <FormLabel>TIA:</FormLabel>
+                                                <FormLabel>TIA: {isEdit ? aluno.tia : ""}</FormLabel>
                                                 <NumberInput>
                                                     <NumberInputField name="tia" onChange={handleChangeAluno} />
                                                 </NumberInput>
                                             </FormControl>
                                             <FormControl>
-                                                <FormLabel >Nome:</FormLabel>
+                                                <FormLabel>Nome: {isEdit ? aluno.nome : ""}</FormLabel>
                                                 <Input name="nome" onChange={handleChangeAluno} />
                                             </FormControl>
                                             <FormControl mt={2}>
@@ -508,10 +741,10 @@ export default function Gerenciamento() {
                                                 </Select>
                                             </FormControl>
                                             <FormControl mt={5} mb={4}>
-                                                <Button width={"100%"} type="submit" backgroundColor={"#C3E3E8"}>Criar</Button>
+                                                <Button width={"100%"} type="submit" backgroundColor={"#C3E3E8"}>{isEdit ? "Editar" : "Criar"}</Button>
                                             </FormControl>
                                         </Flex>
-                                    } isopen={addAlunos.isOpen} open={addAlunos.onOpen} close={addAlunos.onClose} />
+                                    } isopen={addAlunos.isOpen} open={addAlunos.onOpen} close={closeModalAluno} />
                                 </Flex>
                                 <DataGridData {...aluno} colunas={alunoColumns} linhas={alunoRows} />
                             </TabPanel>
