@@ -1,9 +1,8 @@
 package com.api.escolaoctogono.service.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Disciplina {
@@ -14,8 +13,8 @@ public class Disciplina {
     @Column
     private String nome;
 
-    @ManyToOne
-    private Professor professor;
+    @ManyToMany(mappedBy = "disciplinas")
+    private List<Professor> professores;
 
     public Long getCodigo() {
         return codigo;
@@ -33,12 +32,11 @@ public class Disciplina {
         this.nome = nome;
     }
 
-    public Professor getProfessor() {
-        return professor;
+    public List<Professor> getProfessores() {
+        return professores;
     }
 
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
+    public void setProfessores(List<Professor> professores) {
+        this.professores = professores;
     }
-
 }

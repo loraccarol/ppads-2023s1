@@ -21,6 +21,10 @@ public class Professor {
     @ManyToMany
     private List<Turma> turmas;
 
+    @ManyToMany()
+    private List<Disciplina> disciplinas;
+
+
     public TipoFuncao getTipoFuncao() {
         return tipoFuncao;
     }

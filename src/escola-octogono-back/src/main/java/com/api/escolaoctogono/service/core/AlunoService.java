@@ -20,6 +20,9 @@ public class AlunoService {
         this.turmaRepository = turmaRepository;
     }
 
+    public List<Aluno> getAll(){
+        return alunoRepository.findAll();
+    }
     public List<Aluno> getAlunos(Turma turma){
         return alunoRepository.findAlunosByTurmaId(turma.getId());
     }

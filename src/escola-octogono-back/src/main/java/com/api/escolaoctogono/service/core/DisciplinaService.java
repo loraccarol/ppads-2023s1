@@ -13,26 +13,22 @@ import java.util.List;
 public class DisciplinaService {
 
     private final DisciplinaRepository disciplinaRepository;
-    private final ProfessorRepository professorRepository;
+//    private final ProfessorRepository professorRepository;
 
-    public DisciplinaService(DisciplinaRepository disciplinaRepository, ProfessorRepository professorRepository) {
+    public DisciplinaService(DisciplinaRepository disciplinaRepository) {
         this.disciplinaRepository = disciplinaRepository;
-        this.professorRepository = professorRepository;
     }
 
     public List<Disciplina> getAllDisciplinas(){
         return disciplinaRepository.findAll();
     }
-    public List<Disciplina> getDisciplinas(Professor professor){
-        return disciplinaRepository.findAllByProfessorDrt(professor.getDrt());
-    }
+//    public List<Disciplina> getDisciplinas(Professor professor){
+//        return disciplinaRepository.findAllByProfessorDrt(professor.getDrt());
+//    }
 
-    public Disciplina criaDisciplina(Disciplina disciplina, Professor professor){
-        professorRepository.findById(professor.getDrt());
-
+    public Disciplina criaDisciplina(Disciplina disciplina){
         disciplina.setCodigo(disciplina.getCodigo());
         disciplina.setNome(disciplina.getNome());
-        disciplina.setProfessor(professor);
 
         Disciplina criaDisciplina = disciplinaRepository.save(disciplina);
         return criaDisciplina;
@@ -45,7 +41,6 @@ public class DisciplinaService {
 
         atuDisciplina.setCodigo(disciplina.getCodigo());
         atuDisciplina.setNome(disciplina.getNome());
-        atuDisciplina.setProfessor(disciplina.getProfessor());
 
         final Disciplina novaDisciplina = disciplinaRepository.save(atuDisciplina);
         return novaDisciplina;

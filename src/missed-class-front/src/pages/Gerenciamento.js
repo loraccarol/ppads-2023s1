@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import ModalCriar from "../components/ModalCriar";
 import { api } from "../service/api";
 import { TipoFuncao } from "../service/enum/TipoFuncao";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export default function Gerenciamento() {
 
@@ -21,6 +22,19 @@ export default function Gerenciamento() {
         codigo: "",
     })
 
+    const [disciplinasList, setDisciplinasList] = useState([]);
+    const [disciplina, setDisciplina] = useState({
+        codigo: 0,
+        nome: ""
+    })
+
+    const [alunosList, setAlunosList] = useState([]);
+    const [aluno, setAluno] = useState({
+        tia: 0,
+        nome: "",
+        turmaId: 0
+    })
+
     const addProfs = useDisclosure();
     const addDisciplinas = useDisclosure();
     const addTurmas = useDisclosure();
@@ -30,8 +44,17 @@ export default function Gerenciamento() {
         api.get('/professores/').then((response) => {
             setProfessoresList(response.data)
         })
+
         api.get('/turmas/').then((response) => {
             setTurmasList(response.data)
+        })
+
+        api.get('/disciplinas/').then((response) => {
+            setDisciplinasList(response.data)
+        })
+
+        api.get('/alunos/').then((response) => {
+            setAlunosList(response.data)
         })
     }, [])
 
@@ -51,12 +74,28 @@ export default function Gerenciamento() {
         });
     };
 
+    const handleChangeDisciplina = (e) => {
+        const value = e.target.value;
+        setDisciplina({
+            ...disciplina,
+            [e.target.name]: value
+        });
+    };
+
+    const handleChangeAluno = (e) => {
+        const value = e.target.value;
+        setAluno({
+            ...aluno,
+            [e.target.name]: value
+        });
+    };
+
     const handleCriarProf = (event) => {
         event.preventDefault();
 
         const profData = {
             drt: professor.drt,
-            nome: professor.nome,
+            nome: professor.nome.toUpperCase(),
             tipoFuncao: professor.tipoFuncao
         };
 
@@ -71,7 +110,7 @@ export default function Gerenciamento() {
 
         const turmaData = {
             ano: turma.ano,
-            codigo: turma.codigo
+            codigo: turma.codigo.toUpperCase()
         };
 
         api.post('/turmas/criar/turma', turmaData).then((response) => {
@@ -80,7 +119,34 @@ export default function Gerenciamento() {
         });
     }
 
-    console.log(turmasList);
+    const handleCriarDisciplina = (event) => {
+        event.preventDefault();
+
+        const disciplinaData = {
+            codigo: disciplina.codigo,
+            nome: disciplina.nome.toUpperCase()
+        };
+
+        api.post('/disciplinas/criar/disciplina', disciplinaData).then((response) => {
+            disciplinasList.push(response.data)
+            addDisciplinas.onClose()
+        });
+    }
+
+    const handleCriarAluno = (event) => {
+        event.preventDefault();
+
+        const alunoData = {
+            tia: aluno.tia,
+            nome: aluno.nome.toUpperCase(),
+            turmaId: aluno.turmaId
+        };
+
+        api.post(`/alunos/criar/${aluno.turmaId}`, alunoData).then((response) => {
+            alunosList.push(response.data)
+            addAlunos.onClose()
+        });
+    }
 
     const profColumns = [
         { field: 'id', headerName: 'DRT', flex: 2 },
@@ -120,7 +186,7 @@ export default function Gerenciamento() {
                                 transition={"1s"}
                                 width={"80%"}
                             >
-                                AÇÃO
+                               <Text>AÇÃO</Text>
                             </MenuButton>
                             <Portal>
                                 <MenuList backgroundColor={"#C3E3E8"} p={10} borderRadius={"10px"}>
@@ -191,14 +257,115 @@ export default function Gerenciamento() {
         })
     })
 
+    const disciplinaColumns = [
+        { field: 'id', headerName: 'Código', flex: 2 },
+        {
+            field: 'nome',
+            headerName: 'Nome',
+            flex: 3
+        },
+        {
+            field: 'acao',
+            headerName: 'Ação',
+            flex: 1,
+            renderCell: (params) => {
+                return (
+                    <>
+
+                        <Menu>
+                            <MenuButton
+                                as={Button}
+                                backgroundColor={"#C3E3E8"}
+                                p={5}
+                                borderRadius={"10px"}
+                                _hover={{ bg: '#3ea8ac' }}
+                                transition={"1s"}
+                                width={"80%"}
+                            >
+                               <Text>AÇÃO</Text>
+                            </MenuButton>
+                            <Portal>
+                                <MenuList backgroundColor={"#C3E3E8"} p={10} borderRadius={"10px"}>
+                                    <MenuItem _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Editar</MenuItem>
+                                    <MenuItem _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Deletar</MenuItem>
+                                </MenuList>
+                            </Portal>
+                        </Menu>
+                    </>
+
+                )
+            }
+        }
+    ];
+
+    let disciplinaRows = []
+    disciplinasList.map(disciplina => {
+        disciplinaRows.push({
+            id: disciplina.codigo,
+            nome: disciplina.nome
+        })
+    })
+
+    const alunoColumns = [
+        { field: 'id', headerName: 'TIA', flex: 2 },
+        {
+            field: 'nome',
+            headerName: 'Nome',
+            flex: 3
+        },
+        {
+            field: 'turmaId',
+            headerName: 'Turma',
+            flex: 2
+        },
+        {
+            field: 'acao',
+            headerName: 'Ação',
+            flex: 1,
+            renderCell: (params) => {
+                return (
+                    <>
+
+                        <Menu>
+                            <MenuButton
+                                as={Button}
+                                backgroundColor={"#C3E3E8"}
+                                p={5}
+                                borderRadius={"10px"}
+                                _hover={{ bg: '#3ea8ac' }}
+                                transition={"1s"}
+                                width={"80%"}
+                            >
+                               <Text>AÇÃO</Text>
+                            </MenuButton>
+                            <Portal>
+                                <MenuList backgroundColor={"#C3E3E8"} p={10} borderRadius={"10px"}>
+                                    <MenuItem _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Editar</MenuItem>
+                                    <MenuItem _hover={{ bg: '#3ea8ac' }} transition={"1s"} borderRadius="10px" padding={"5px"}>Deletar</MenuItem>
+                                </MenuList>
+                            </Portal>
+                        </Menu>
+                    </>
+
+                )
+            }
+        }
+    ];
+
+    let alunoRows = []
+    alunosList.map(aluno => {
+        alunoRows.push({
+            id: aluno.tia,
+            nome: aluno.nome,
+            turmaId: aluno.turma.codigo
+        })
+    })
 
     return (
         <Flex justifyContent={"center"}>
             <Grid width={"70%"} height={"60%"}>
                 <GridItem>
                     <Header />
-
-
                 </GridItem>
                 <Flex margin={"2rem"} marginBottom={"0"}>
                     <Tabs width={"100%"}>
@@ -243,14 +410,24 @@ export default function Gerenciamento() {
                             <TabPanel>
                                 <Flex justifyContent={"flex-start"}>
                                     <ModalCriar title={"Nova Disciplina"} body={
-                                        <Flex>
+                                        <Flex as={"form"} onSubmit={handleCriarDisciplina} flexDirection={"column"}>
                                             <FormControl>
+                                                <FormLabel>Código:</FormLabel>
+                                                <NumberInput>
+                                                    <NumberInputField name="codigo" onChange={handleChangeDisciplina} />
+                                                </NumberInput>
+                                            </FormControl>
+                                            <FormControl mt={2}>
                                                 <FormLabel>Nome:</FormLabel>
-                                                <Input />
+                                                    <Input name="nome" onChange={handleChangeDisciplina} />
+                                            </FormControl>
+                                            <FormControl mt={5} mb={4}>
+                                                <Button width={"100%"} type="submit" backgroundColor={"#C3E3E8"}>Criar</Button>
                                             </FormControl>
                                         </Flex>
                                     } isopen={addDisciplinas.isOpen} open={addDisciplinas.onOpen} close={addDisciplinas.onClose} />
                                 </Flex>
+                                <DataGridData {...disciplina} colunas={disciplinaColumns} linhas={disciplinaRows} />
                             </TabPanel>
                             <TabPanel>
                                 <Flex justifyContent={"flex-start"}>
@@ -278,14 +455,34 @@ export default function Gerenciamento() {
                             <TabPanel>
                                 <Flex justifyContent={"flex-start"}>
                                     <ModalCriar title={"Novo Aluno"} body={
-                                        <Flex>
+                                        <Flex  as={"form"} onSubmit={handleCriarAluno} flexDirection={"column"}>
                                             <FormControl>
-                                                <FormLabel>Nome:</FormLabel>
-                                                <Input />
+                                                <FormLabel>TIA:</FormLabel>
+                                                <NumberInput>
+                                                    <NumberInputField name="tia" onChange={handleChangeAluno} />
+                                                </NumberInput>
+                                            </FormControl>
+                                            <FormControl>
+                                                <FormLabel >Nome:</FormLabel>
+                                                <Input name="nome" onChange={handleChangeAluno} />
+                                            </FormControl>
+                                            <FormControl mt={2}>
+                                                <FormLabel>Turma:</FormLabel>
+                                                <Select name="turmaId" onChange={handleChangeAluno} placeholder='Selecionar'>
+                                                    {turmasList.map(turma => {
+                                                        return (
+                                                            <option key={turma.id} value={turma.id}>{turma.codigo}</option>
+                                                        )
+                                                    })}
+                                                </Select>
+                                            </FormControl>
+                                            <FormControl mt={5} mb={4}>
+                                                <Button width={"100%"} type="submit" backgroundColor={"#C3E3E8"}>Criar</Button>
                                             </FormControl>
                                         </Flex>
                                     } isopen={addAlunos.isOpen} open={addAlunos.onOpen} close={addAlunos.onClose} />
                                 </Flex>
+                                <DataGridData {...aluno} colunas={alunoColumns} linhas={alunoRows} />
                             </TabPanel>
                         </TabPanels>
                     </Tabs>

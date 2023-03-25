@@ -2,7 +2,6 @@ package com.api.escolaoctogono.controller;
 
 import com.api.escolaoctogono.service.core.DisciplinaService;
 import com.api.escolaoctogono.service.model.Disciplina;
-import com.api.escolaoctogono.service.model.Professor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,14 +23,10 @@ public class DisciplinaController {
         return new ResponseEntity<>(disciplinaService.getAllDisciplinas(), HttpStatus.OK);
     }
 
-    @GetMapping("/{profDRT}")
-    public ResponseEntity<Object> getDisciplinas(@PathVariable("profDRT") Professor profDRT){
-        return new ResponseEntity<>(disciplinaService.getDisciplinas(profDRT), HttpStatus.OK);
-    }
-    @PostMapping("/criar/{profDRT}")
-    public ResponseEntity<Disciplina> criarDisciplina(@PathVariable("profDRT") Professor profDRT, @RequestBody Disciplina disciplina) {
+    @PostMapping("/criar/disciplina")
+    public ResponseEntity<Disciplina> criarDisciplina( @RequestBody Disciplina disciplina) {
 
-        Disciplina novaDisciplina = disciplinaService.criaDisciplina(disciplina, profDRT);
+        Disciplina novaDisciplina = disciplinaService.criaDisciplina(disciplina);
         return new ResponseEntity<>(novaDisciplina, HttpStatus.CREATED);
     }
     @PutMapping("/disciplina/{disciplinaCodigo}")

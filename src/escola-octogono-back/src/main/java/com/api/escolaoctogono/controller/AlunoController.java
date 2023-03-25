@@ -19,6 +19,11 @@ public class AlunoController {
         this.alunoService = alunoService;
     }
 
+    @GetMapping("/")
+    public ResponseEntity<Object> getAll(){
+        return new ResponseEntity<>(alunoService.getAll(), HttpStatus.OK);
+    }
+
     @GetMapping("/{turmaId}")
     public ResponseEntity<Object> getAlunos(@PathVariable("turmaId") Turma turmaId){
 
