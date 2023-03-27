@@ -22,8 +22,9 @@ public class AlunoService {
     }
 
     public Optional<Aluno> getAluno(Long tia) {
-        return alunoRepository.findById(tia);
+        return alunoRepository.findByTia(tia);
     }
+
     public List<Aluno> getAll(){
         return alunoRepository.findAll();
     }

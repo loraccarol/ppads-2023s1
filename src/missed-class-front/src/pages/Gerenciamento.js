@@ -360,7 +360,7 @@ export default function Gerenciamento() {
 
     function editModalAluno(tia) {
         addAlunos.onOpen()
-        api.get(`/alunos/${tia}`).then((response) => {
+        api.get(`/alunos/aluno/${tia}`).then((response) => {
             setAluno(response.data);
         })
         setIsEdit(true)
@@ -621,7 +621,7 @@ export default function Gerenciamento() {
         alunoRows.push({
             id: aluno.tia,
             nome: aluno.nome,
-            turmaId: aluno.turma.ano + aluno.turma.codigo
+            turmaId: aluno.turma.codigo
         })
     })
 

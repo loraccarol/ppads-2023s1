@@ -25,8 +25,8 @@ public class AlunoController {
         return new ResponseEntity<>(alunoService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{tia}")
-    public ResponseEntity<Object> getAlunos(@PathVariable("tia") Long tia){
+    @GetMapping("/aluno/{tia}")
+    public ResponseEntity<Object> getAluno(@PathVariable("tia") Long tia){
 
         return new ResponseEntity<>(alunoService.getAluno(tia), HttpStatus.OK);
     }
