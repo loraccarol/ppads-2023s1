@@ -51,7 +51,7 @@ function Turmas() {
       </div>
       <Container style={{marginBottom: "100px"}}>
         {title.map((txt) => (
-          <Opcao style={{fontFamily:"Montagu Slab", fontSize:"24px", paddingLeft:"100px"}}>{txt}</Opcao>
+          <Opcao style={{fontFamily:"Montagu Slab", fontSize:"25px", paddingLeft:"100px"}}>{txt}</Opcao>
         ))}
       </Container>
       
