@@ -1,6 +1,6 @@
 import React from "react"
 import logo from '../icons/logo.svg'
-import icone_visualizacao from '../icons/icone_visualizacao.png'
+import icone_visualizacao from '../icons/icone-visualizacao.png'
 import styled from "styled-components"
 
 const title = ['Sistema de Chamada', 'Nome do Professor']
@@ -43,7 +43,7 @@ const TurmaItem = styled.div`
 `
 
 // const Turmas = () =>{
-function Turmas() {
+export default function Turmas() {
   return (
     <section className="header">
       <div className="logoleft">
@@ -51,7 +51,7 @@ function Turmas() {
       </div>
       <Container style={{marginBottom: "100px"}}>
         {title.map((txt) => (
-          <Opcao style={{fontFamily:"Montagu Slab", fontSize:"25px", paddingLeft:"100px"}}>{txt}</Opcao>
+          <Opcao style={{fontFamily:"Montagu Slab", fontSize:"24px", paddingLeft:"100px"}}>{txt}</Opcao>
         ))}
       </Container>
       
@@ -92,5 +92,3 @@ function Turmas() {
     </section>
   );
 }
-
-export default Turmas
