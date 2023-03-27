@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+h1{
+  text-align: center;
+}
+
+.container-icone {
+  border: 2px solid #64696C;
+  background-color:  #ccffff;
+  border-radius: 14px;
+  width: 40px;
+  height: 40px;
+  margin-left: 50%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.icone-visual {
+  padding: 10px;
+  width: auto;
+  height: auto;
+}
