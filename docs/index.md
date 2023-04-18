@@ -29,12 +29,28 @@
 
 # Diagrama de casos de uso
 
-![Captura de tela 2023-02-16 220433](https://user-images.githubusercontent.com/83656921/219533468-f5aa7e4b-60dd-46e3-9038-66cb2408538a.png)
+![image](https://user-images.githubusercontent.com/83656921/232904379-0ad942f8-72bf-465e-ab49-4b3758a233f5.png)
 
 # Descrição dos casos de uso
 
-## CASO 01 - Registrar faltas
+## CASO 01 - Gerenciar escola
 Identificador   | CASO 01
+--------- | ------
+Nome | Gerenciar escola
+Atores | Professor
+Sumário | O professor tem uma área na qual vai gerenciar todos os professores, alunos, disciplinas e turmas da escola
+Complexidade | Fácil
+Regras de negócio | Cadastro de professores, alunos, disciplinas e turmas que existem na escola.
+
+### Fluxo principal
+Ação do ator   | Ações do sistema
+------ | ------
+-------- |1-O sistema mostra as listas para gerenciamento;
+2-O professor adiciona/edita/exclui algum(a) professor(a), aluno(a), disciplina ou turma; | --------
+-------- | 3-O sistema executa a ação solicitada;
+
+## CASO 02 - Registrar faltas
+Identificador   | CASO 02
 --------- | ------
 Nome | Registrar faltas
 Atores | Professor
@@ -52,8 +68,8 @@ Ação do ator   | Ações do sistema
 5-O clica no botão de confirmação; | --------
 ------ | 6-O sistema salva a lista, marcando quem faltou ou não.
 
-## CASO 02 - Gerar relatório
-Identificador   | CASO 02
+## CASO 03 - Gerar relatório
+Identificador   | CASO 03
 --------- | ------
 Nome | Gerar relatório
 Atores | Professor
@@ -68,19 +84,19 @@ Ação do ator   | Ações do sistema
 2-O professor clica no botão para gerar o relatório; | --------
 -------- | 3-O sistema baixa na máquina do professor um arquivo com todas as informações necessárias;
 
-## CASO 03 - Enviar notificação
-Identificador   | CASO 03
+## CASO 04 - Receber notificação
+Identificador   | CASO 04
 --------- | ------
-Nome | Enviar notificação
-Atores | Professor, responsável
-Sumário | Com o professor gerando o relatório, ele terá o opção de enviar um email para os responsáveis dos alunos que faltaram mais de 20% das aulas.
+Nome | Receber notificação
+Atores | Responsável
+Sumário | O sistema envia um email para os responsáveis dos alunos que faltaram mais de 20% das aulas.
 Complexidade | Fácil
-Regras de negócio | O envio dos emails será apenas para os pais ou responsáveis daqueles alunos que tem mais de 20% de faltas.
+Regras de negócio | O recebimento dos emails será apenas para os pais ou responsáveis daqueles alunos que tem mais de 20% de faltas.
 
 ### Fluxo principal
 Ação do ator   | Ações do sistema
 ------ | ------
-1-O professor entra na área da turma na qual deseja enviar o email para os responsáveis; | ---------
+1-O sistema verifica as faltas | ---------
 -------- | 3-O sistema dispara os emails para os responsáveis dos alunos que faltaram mais de 20% nas aulas;
 -------- | 3-O sistema confirma o envio dos emails para os pais e responsáveis.
 
@@ -90,7 +106,7 @@ Ação do ator   | Ações do sistema
 
 # Modelo de domínio
 
-![image](https://user-images.githubusercontent.com/83656921/221739662-4488f6ae-3368-4317-b5bf-35825433894e.png)
+![image](https://user-images.githubusercontent.com/83656921/232906816-81819998-377c-4383-bf49-8451090566ed.png)
 
 # Decisões de arquitetura
 
@@ -104,8 +120,5 @@ PostgreSQL: Um sistema gerenciador de banco de dados relacional de código abert
 
 # Diagrama de implantação
 
-*&lt;Diagrama de implantação&gt;*
+![image](https://user-images.githubusercontent.com/83656921/232909222-5ea5c3ea-46ae-436a-b5e7-69c374160cba.png)
 
-# Referências
-
-*&lt;Lista de referências&gt;*
