@@ -13,8 +13,6 @@
 - [Modelo de domínio](#modelo-de-domínio)
 - [Decisões de arquitetura](#decisões-de-arquitetura)
 - [Diagrama de implantação](#diagrama-de-implantação)
-- [Referências](#referências)
-
 
 # Autores
 
@@ -23,9 +21,13 @@
 * Enzo Fiorelli
 * Marcus Vinicius
 
+
+
 # Descrição do projeto
 
 *O nosso projeto se baseia em um "Sistema de Presença" requisitado pela Escola Octógono, usufruiremos da programação para montar um software capaz de atender os requisitos levantados pela escola, para que os professores possam realizar o registro de faltas de uma maneira muito mais prática e intuitiva, com o objetivo de ter um controle maior de frequência dos alunos. Vamos utilizar o SpringBoot e o React JS como ferramentas para nos auxilixar na construção do Sistema, onde ao executar o programa, o professor registrará a falta, logo depois o software armazena esses dados registrados em um banco de dados, e em seguida apresenta os mesmos para uma visualização, dependendo da pesquisa que o usuário fazer.*
+
+### [LINK PARA SISTEMA DE PRESENÇA](https://ppads-2023s1-escola-octogono.vercel.app/)
 
 # Diagrama de casos de uso
 
