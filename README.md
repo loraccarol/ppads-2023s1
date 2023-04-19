@@ -11,7 +11,7 @@
 
 # Documentação
 
-Os arquivos da documentação deste projeto estão na pasta [/docs](/docs).
+Os arquivos da documentação deste projeto estão na pasta [/docs](/docs/index.md).
 
 # Releases
 
