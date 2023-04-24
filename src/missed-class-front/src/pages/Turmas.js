@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
-import { Flex, Box, IconButton, Text, Link } from "@chakra-ui/react";
+import { Flex, Box, IconButton, Text, Link, Grid, GridItem } from "@chakra-ui/react";
 import { ViewIcon } from "@chakra-ui/icons";
 import { api } from "../service/api";
 import { useMemo, useState } from "react";
@@ -9,9 +9,9 @@ import { useMemo, useState } from "react";
 const Container = styled.div`
   display: flex;
   justify-content: center;
-
   width: 100%;
   max-width: 1024px;
+  margin-top: 2em
 `;
 const Sub = styled.section`
   display: flex;
@@ -20,6 +20,7 @@ const Sub = styled.section`
 
   width: 100%;
   max-width: 1024px;
+  margin-top: 1em
 `;
 
 function Turmas() {
@@ -48,35 +49,34 @@ function Turmas() {
           }
         </Container>
         <Sub>Selecione uma turma</Sub>
-        <Flex justifyContent={"center"} w={"100%"}>
+        <Grid marginTop={"5em"} w={"100%"} templateColumns='repeat(4, 1fr)' gap={5}>
           {turmasList &&
             turmasList.map((turma) => {
               return (
-                <Flex
+                <GridItem
                   key={turma.codigo}
-                  alignItems={"center"}
                   backgroundColor={"#48bdc2"}
-                  padding={4}
-                  margin={4}
                   borderRadius={"8px"}
                   boxShadow={
                     "rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px"
                   }
                 >
-                  <Text margin={2}>
-                    {turma.codigo + " - " + turma.ano + "° ANO"}
-                  </Text>
-                  <Link href={"/chamada/" + turma.id}>
-                    <IconButton
-                      size="sm"
-                      icon={<ViewIcon />}
-                      onClick={() => localStorage.setItem("turmaId", turma.id)}
-                    />
-                  </Link>
-                </Flex>
+                  <Flex justifyContent={"center"} alignItems={"center"} padding={"10px"}>
+                    <Text margin={2}>
+                      {turma.codigo + " - " + turma.ano + "° ANO"}
+                    </Text>
+                    <Link href={"/chamada/" + turma.id}>
+                      <IconButton
+                        size="sm"
+                        icon={<ViewIcon />}
+                        onClick={() => localStorage.setItem("turmaId", turma.id)}
+                      />
+                    </Link>
+                  </Flex>
+                </GridItem>
               );
             })}
-        </Flex>
+        </Grid>
       </div>
     </Flex>
   );

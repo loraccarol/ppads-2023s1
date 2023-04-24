@@ -4,7 +4,8 @@ import {
   Flex,
   Grid,
   GridItem,
-  Button
+  Button,
+  Select
 } from "@chakra-ui/react";
 import { api } from "../service/api";
 import { useMemo, useState } from "react";
@@ -34,7 +35,7 @@ export default function Chamada() {
 
   const alunosColumns = [
     {
-      field: "falta",
+      field: "checkboxInput",
       headerName: " ",
       flex: 1,
       renderCell: (params) => {
@@ -70,18 +71,24 @@ export default function Chamada() {
         <GridItem marginTop={2}>
           <Flex width={"100%"} justifyContent={"center"}>
             <Flex margin={2}>
-              Professor:
+              Professor:{" "}
               {
                 professoresList.find(
                   (professor) =>
-                    professor.drt == Number(localStorage.getItem("professor"))
+                    professor.drt === Number(localStorage.getItem("professor"))
                 )?.nome
               }
             </Flex>
             <Flex margin={2}>
               Turma:{" "}
-              {turmasList.find((turma) => turma.id == Number(turmaId))?.codigo}
+              {turmasList.find((turma) => turma.id === Number(turmaId))?.codigo}
             </Flex>
+          </Flex>
+          <Flex width={"100%"} justifyContent={"center"}>
+            <Select placeholder='Escolha a chamada' background={"white"} width={"40%"}>
+              <option value='1'>Chamada 1</option>
+              <option value='2'>Chamada 2</option>
+            </Select>
           </Flex>
         </GridItem>
         {alunosRows && (
@@ -89,8 +96,10 @@ export default function Chamada() {
             <DataGridData colunas={alunosColumns} linhas={alunosRows} />
           </GridItem>
         )}
-        <GridItem>
-          <Button>Lançar faltas</Button>
+        <GridItem margin={"2em"}>
+          <Flex justifyContent={"flex-end"} width={"100%"}>
+            <Button onClick={() => console.log(faltantes)}>Lançar faltas</Button>
+          </Flex>
         </GridItem>
       </Grid>
     </Flex>
