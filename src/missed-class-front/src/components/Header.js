@@ -7,19 +7,8 @@ export default function Header() {
             <Image src={logo} alt="logo" width='200px' />
             <Flex width={"100%"} justifyContent={"space-evenly"}>
                 <Link href="/gerenciamento"><Button><Text fontSize={"18px"}>Gerenciamento</Text></Button></Link>
-                <Tooltip label="Não disponível - em desenvolvimento" fontSize='md'>
-                    <Button isDisabled><Text fontSize={"18px"}>Minhas turmas</Text></Button>
-                </Tooltip>
-                <Menu>
-                    <MenuButton as={Button}>
-                        Perfil
-                    </MenuButton>
-                    <MenuList>
-                        <MenuGroup>
-                            <Link href="/"><MenuItem><Text fontSize={"18px"}>Sair</Text></MenuItem></Link>
-                        </MenuGroup>
-                    </MenuList>
-                </Menu>
+                <Link href="/lista"><Button><Text fontSize={"18px"}>Fazer chamada</Text></Button></Link>
+                <Link href="/"><Button><Text fontSize={"18px"}>Sair</Text></Button></Link>
             </Flex>
         </Flex>
     )

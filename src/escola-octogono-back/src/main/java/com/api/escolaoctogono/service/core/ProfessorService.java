@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import javax.management.relation.RoleNotFoundException;
 
+import com.api.escolaoctogono.service.model.Auth;
+import com.api.escolaoctogono.service.repository.AuthRepository;
 import org.springframework.stereotype.Service;
 
 import com.api.escolaoctogono.service.model.Professor;
@@ -13,9 +15,12 @@ import com.api.escolaoctogono.service.repository.ProfessorRepository;
 @Service
 public class ProfessorService {
 
+    private final AuthRepository authRepository;
+
     private final ProfessorRepository professorRepository;
 
-    public ProfessorService(ProfessorRepository professorRepository) {
+    public ProfessorService(AuthRepository authRepository, ProfessorRepository professorRepository) {
+        this.authRepository = authRepository;
         this.professorRepository = professorRepository;
     }
 
@@ -31,7 +36,14 @@ public class ProfessorService {
     }
 
     public Professor adicionaProfessor(Professor professor) {
-        return professorRepository.saveAndFlush(professor);
+        var prof = professorRepository.saveAndFlush(professor);
+
+        Auth loginProf = new Auth();
+        loginProf.setUsername(prof.getDrt());
+        loginProf.setPassword("mackenzie");
+        authRepository.saveAndFlush(loginProf);
+
+        return prof;
     }
 
     public Professor atualizaProfessor(Professor professor) throws RoleNotFoundException {

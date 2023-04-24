@@ -240,16 +240,16 @@ insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, profe
 insert into grade_horarios (id, chamada, dia_da_semana, disciplina_codigo, professor_drt, turma_id) values (20, 2, 6, 2, 519105, 6);
 
 
-insert into aula (id, chamada, data, dia_da_semana, turma_id) values (1,1,'2023-02-06', 2, 4);
-insert into aula (id, chamada, data, dia_da_semana, turma_id) values (2,2,'2023-02-06', 2, 4);
-insert into aula (id, chamada, data, dia_da_semana, turma_id) values (3,1,'2023-02-07', 3, 4);
-insert into aula (id, chamada, data, dia_da_semana, turma_id) values (4,2,'2023-02-07', 3, 4);
-insert into aula (id, chamada, data, dia_da_semana, turma_id) values (5,1,'2023-02-08', 4, 4);
-insert into aula (id, chamada, data, dia_da_semana, turma_id) values (6,2,'2023-02-08', 4, 4);
-insert into aula (id, chamada, data, dia_da_semana, turma_id) values (7,1,'2023-02-09', 5, 4);
-insert into aula (id, chamada, data, dia_da_semana, turma_id) values (8,2,'2023-02-09', 5, 4);
-insert into aula (id, chamada, data, dia_da_semana, turma_id) values (9,1,'2023-02-10', 6, 4);
-insert into aula (id, chamada, data, dia_da_semana, turma_id) values (10,2,'2023-02-10', 6, 4);
+insert into aula (id, chamada, data, turma_id) values (1,1,'2023-02-06', 1);
+insert into aula (id, chamada, data, turma_id) values (2,2,'2023-02-06', 1);
+insert into aula (id, chamada, data, turma_id) values (3,1,'2023-02-07', 1);
+insert into aula (id, chamada, data, turma_id) values (4,2,'2023-02-07', 1);
+insert into aula (id, chamada, data, turma_id) values (5,1,'2023-02-08', 1);
+insert into aula (id, chamada, data, turma_id) values (6,2,'2023-02-08', 1);
+insert into aula (id, chamada, data, turma_id) values (7,1,'2023-02-09', 1);
+insert into aula (id, chamada, data, turma_id) values (8,2,'2023-02-09', 1);
+insert into aula (id, chamada, data, turma_id) values (9,1,'2023-02-10', 1);
+insert into aula (id, chamada, data, turma_id) values (10,2,'2023-02-10', 1);
 
 insert into aula (id, chamada, data, dia_da_semana, turma_id) values (11,1,'2023-02-06', 2, 6);
 insert into aula (id, chamada, data, dia_da_semana, turma_id) values (12,2,'2023-02-06', 2, 6);
@@ -262,9 +262,9 @@ insert into aula (id, chamada, data, dia_da_semana, turma_id) values (18,2,'2023
 insert into aula (id, chamada, data, dia_da_semana, turma_id) values (19,1,'2023-02-10', 6, 6);
 insert into aula (id, chamada, data, dia_da_semana, turma_id) values (20,2,'2023-02-10', 6, 6);
 
-insert into faltas (id, aluno_tia, aula_id) values (1, 892440, 1);
-insert into faltas (id, aluno_tia, aula_id) values (2, 222143, 2);
-insert into faltas (id, aluno_tia, aula_id) values (3, 892440, 2);
+insert into faltas (id, aluno_tia, aula_id) values (1, 122841, 1);
+insert into faltas (id, aluno_tia, aula_id) values (2, 122841, 2);
+insert into faltas (id, aluno_tia, aula_id) values (3, 122841, 2);
 insert into faltas (id, aluno_tia, aula_id) values (4, 319363, 13);
 insert into faltas (id, aluno_tia, aula_id) values (5, 319363, 14);
 insert into faltas (id, aluno_tia, aula_id) values (6, 319363, 20);
