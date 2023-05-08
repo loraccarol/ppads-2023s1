@@ -1,21 +1,17 @@
 import React from "react";
 import Header from "../components/Header";
-import {
-  Flex,
-  Grid,
-  GridItem,
-  Button,
-  Select
-} from "@chakra-ui/react";
+import { Flex, Grid, GridItem, Button, Select } from "@chakra-ui/react";
 import { api } from "../service/api";
 import { useMemo, useState } from "react";
 import DataGridData from "../components/DataGridData";
+import Swal from "sweetalert2";
 
 export default function Chamada() {
   const [professoresList, setProfessoresList] = useState([]);
   const [turmasList, setTurmasList] = useState([]);
   const [alunosList, setAlunosList] = useState([]);
-  const [faltantes, setFaltantes] = useState([]);
+
+  let faltantes = [];
 
   let turmaId = localStorage.getItem("turmaId");
 
@@ -62,6 +58,26 @@ export default function Chamada() {
     });
   });
 
+  function lancarFaltas() {
+    Swal.fire({
+      customClass: {
+        container: "swal",
+      },
+      title: "Deseja lançar faltas?",
+      text: faltantes.map((f) => f.nome), 
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Confirmar",
+      confirmButtonColor: "black",
+      cancelButtonText: "Cancelar",
+      reverseButtons: true,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        window.location.href = "/";
+      }
+    });
+  }
+
   return (
     <Flex justifyContent={"center"}>
       <Grid width={"70%"} height={"50%"}>
@@ -85,9 +101,9 @@ export default function Chamada() {
             </Flex>
           </Flex>
           <Flex width={"100%"} justifyContent={"center"}>
-            <Select placeholder='Escolha a chamada' background={"white"} width={"40%"}>
-              <option value='1'>Chamada 1</option>
-              <option value='2'>Chamada 2</option>
+            <Select background={"white"} width={"40%"} defaultChecked={"1"}>
+              <option value="1">Chamada 1</option>
+              <option value="2">Chamada 2</option>
             </Select>
           </Flex>
         </GridItem>
@@ -98,7 +114,7 @@ export default function Chamada() {
         )}
         <GridItem margin={"2em"}>
           <Flex justifyContent={"flex-end"} width={"100%"}>
-            <Button onClick={() => console.log(faltantes)}>Lançar faltas</Button>
+            <Button onClick={() => lancarFaltas()}>Lançar faltas</Button>
           </Flex>
         </GridItem>
       </Grid>
