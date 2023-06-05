@@ -16,6 +16,16 @@ public class Disciplina {
     @ManyToMany(mappedBy = "disciplinas")
     private List<Professor> professores;
 
+    public Disciplina(Long codigo, String nome, List<Professor> professores) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.professores = professores;
+    }
+
+    public Disciplina() {
+
+    }
+
     public Long getCodigo() {
         return codigo;
     }

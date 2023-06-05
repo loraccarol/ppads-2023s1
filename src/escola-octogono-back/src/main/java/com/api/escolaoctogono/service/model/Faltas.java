@@ -1,10 +1,7 @@
 package com.api.escolaoctogono.service.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import com.api.escolaoctogono.service.model.enums.NumChamada;
+import jakarta.persistence.*;
 
 @Entity
 public class Faltas {
@@ -13,11 +10,12 @@ public class Faltas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Aluno aluno;
+    @Column
+    private Long alunoTia;
 
-    @ManyToOne
-    private Aula aula;
+    @Column
+    private Long aulaId;
+
 
     public Long getId() {
         return id;
@@ -27,20 +25,20 @@ public class Faltas {
         this.id = id;
     }
 
-    public Aluno getAluno() {
-        return aluno;
+    public Long getAlunoTia() {
+        return alunoTia;
     }
 
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
+    public void setAlunoTia(Long alunoTia) {
+        this.alunoTia = alunoTia;
     }
 
-    public Aula getAula() {
-        return aula;
+    public Long getAulaId() {
+        return aulaId;
     }
 
-    public void setAula(Aula aula) {
-        this.aula = aula;
+    public void setAulaId(Long aulaId) {
+        this.aulaId = aulaId;
     }
-    
+
 }

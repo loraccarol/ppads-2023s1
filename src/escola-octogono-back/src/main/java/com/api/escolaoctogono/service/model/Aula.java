@@ -3,6 +3,7 @@ package com.api.escolaoctogono.service.model;
 import java.util.Date;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Aula {
@@ -10,25 +11,23 @@ public class Aula {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column
+    @NotNull
     private Date data;
 
     @Column
+    @NotNull
     private Integer chamada;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Turma turma;
+    @Column
+    @NotNull
+    private Long turmaId;
 
-    @OneToOne
-    private Disciplina disciplina;
+    @Column
+    private String disciplinaCodigo;
 
-    public Turma getTurma() {
-        return turma;
-    }
-
-    public void setTurma(Turma turma) {
-        this.turma = turma;
+    public Aula() {
     }
 
     public Long getId() {
@@ -47,4 +46,27 @@ public class Aula {
         this.data = data;
     }
 
+    public Integer getChamada() {
+        return chamada;
+    }
+
+    public void setChamada(Integer chamada) {
+        this.chamada = chamada;
+    }
+
+    public Long getTurmaId() {
+        return turmaId;
+    }
+
+    public void setTurmaId(Long turmaId) {
+        this.turmaId = turmaId;
+    }
+
+    public String getDisciplinaCodigo() {
+        return disciplinaCodigo;
+    }
+
+    public void setDisciplinaCodigo(String disciplinaCodigo) {
+        this.disciplinaCodigo = disciplinaCodigo;
+    }
 }

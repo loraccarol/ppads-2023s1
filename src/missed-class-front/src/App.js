@@ -6,6 +6,7 @@ import Gerenciamento from './pages/Gerenciamento';
 import NaoDisponivel from './pages/NaoDisponivel';
 import ListaProfs from './pages/ListaProfs';
 import Chamada from './pages/Chamada';
+import Relatorio from './pages/Relatorio';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path='/turmas' element={<Turmas />} />
           <Route path='/gerenciamento' element={<Gerenciamento />} />
           <Route path='/chamada/:turmaId' element={<Chamada />} />
+          <Route path='/relatorio' element={<Relatorio />} />
           <Route path='/*' element={<NaoDisponivel />} />
         </Routes>
       </div>

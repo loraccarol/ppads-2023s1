@@ -1,17 +1,26 @@
 import React from "react";
 import Header from "../components/Header";
-import { Flex, Grid, GridItem, Button, Select } from "@chakra-ui/react";
+import { Flex, Grid, GridItem, Button, Select, Input } from "@chakra-ui/react";
 import { api } from "../service/api";
 import { useMemo, useState } from "react";
 import DataGridData from "../components/DataGridData";
 import Swal from "sweetalert2";
+import { DataGrid } from "@mui/x-data-grid";
 
 export default function Chamada() {
+
+  const [faltantes, setFaltantes] = useState([]);
+  const [date, setDate] = useState();
   const [professoresList, setProfessoresList] = useState([]);
   const [turmasList, setTurmasList] = useState([]);
   const [alunosList, setAlunosList] = useState([]);
-
-  let faltantes = [];
+  const [aula, setAula] = useState({
+      chamada: null,
+      data: date,
+      disciplinaCodigo: null,
+      turmaId: localStorage.getItem("turmaId")
+  })
+  const today = new Date().toISOString().split('T')[0]; // Obtém a data atual no formato 'yyyy-mm-dd'
 
   let turmaId = localStorage.getItem("turmaId");
 
@@ -28,6 +37,60 @@ export default function Chamada() {
       setAlunosList(response.data);
     });
   }, []);
+  
+  const handleCheck = (event) => {
+    var updatedList = [...faltantes];
+    if (event.target.checked) {
+      updatedList = [...faltantes, event.target.value];
+    } else {
+      updatedList.splice(faltantes.indexOf(event.target.value), 1);
+    }
+    setFaltantes(updatedList);
+  };
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setAula({
+        ...aula,
+        [e.target.name]: value
+    });
+  };
+
+  const handleCriarAulaEFaltas = () => {
+    
+    if (aula.chamada == null || aula.data == null) {
+      Swal.fire({
+        customClass: {
+          container: "swal",
+        },
+        title: "ERRO", 
+        text: "Verifique se todas as informações estão preenchidas.",
+        icon: "error",
+        showCancelButton: true,
+        confirmButtonText: "Confirmar",
+        confirmButtonColor: "black",
+        cancelButtonText: "Cancelar",
+        reverseButtons: true,
+      })
+    }
+
+    api.post('/aulas/aula/criar', aula).then((response) => {
+      console.log(response.data)
+      console.log(faltantes.length)
+      for (var i = 0; i < faltantes.length; i++) {
+
+        const faltaData = {
+          aulaId: response.data.id,
+          alunoTia: faltantes[i]
+        };
+
+        api.post('/faltas/falta/criar', faltaData).then((faltasresponse) => {
+          console.log(faltasresponse)
+        })
+
+      }
+    });
+  }
 
   const alunosColumns = [
     {
@@ -37,7 +100,7 @@ export default function Chamada() {
       renderCell: (params) => {
         return (
           <>
-            <input type="checkbox" onClick={() => faltantes.push(params.row)} />
+            <input type="checkbox" value={params.row.id} onChange={handleCheck} />
           </>
         );
       },
@@ -73,10 +136,13 @@ export default function Chamada() {
       reverseButtons: true,
     }).then(async (result) => {
       if (result.isConfirmed) {
-        window.location.href = "/";
+        handleCriarAulaEFaltas();
+        window.location.href = "/relatorio";
       }
     });
   }
+
+console.log(faltantes)
 
   return (
     <Flex justifyContent={"center"}>
@@ -95,26 +161,34 @@ export default function Chamada() {
                 )?.nome
               }
             </Flex>
-            <Flex margin={2}>
+            <Flex name="turmaId" margin={2}>
               Turma:{" "}
               {turmasList.find((turma) => turma.id === Number(turmaId))?.codigo}
             </Flex>
           </Flex>
-          <Flex width={"100%"} justifyContent={"center"}>
-            <Select background={"white"} width={"40%"} defaultChecked={"1"}>
-              <option value="1">Chamada 1</option>
-              <option value="2">Chamada 2</option>
-            </Select>
+          <Flex width={"100%"} justifyContent={"space-around"}>
+
+           <Flex borderRadius={"8px"} background={"white"} width={"40%"}>
+              <Input name="data" type="date" max={today} onChange={handleChange}/>
+            </Flex>
+
+            <Select name="chamada" background={"white"} width={"40%"} onChange={handleChange}>
+              <option>Selecione...</option>
+              <option value={'1'}>Chamada 1</option>
+              <option value={'2'}>Chamada 2</option>
+            </Select> 
+
+
           </Flex>
         </GridItem>
         {alunosRows && (
           <GridItem>
-            <DataGridData colunas={alunosColumns} linhas={alunosRows} />
+            <DataGridData colunas={alunosColumns} linhas={alunosRows} /> 
           </GridItem>
         )}
         <GridItem margin={"2em"}>
           <Flex justifyContent={"flex-end"} width={"100%"}>
-            <Button onClick={() => lancarFaltas()}>Lançar faltas</Button>
+            <Button type="submite" onClick={() => lancarFaltas()}>Lançar faltas</Button>
           </Flex>
         </GridItem>
       </Grid>
