@@ -124,3 +124,19 @@ PostgreSQL: Um sistema gerenciador de banco de dados relacional de código abert
 
 ![image](https://user-images.githubusercontent.com/83656921/232909222-5ea5c3ea-46ae-436a-b5e7-69c374160cba.png)
 
+# Plano de teste
+
+## CASO 01 - Gerenciar escola
+Informação   | Exemplo
+--------- | ------
+Identificação única | CASO 01
+Caso de uso em que se baseia | Gerenciar escola
+Cenário | Fluxo principal
+Preparação (descrição da condição do sistema no início do teste) | Aluno deve ser cadastrado no sistema com seu tia, nome, e turma que está vinculado
+Passos para a execução do teste | (1) Entrar na aba gerenciamento. (2) Escolher a aba 'Alunos' e clicar em Novo Aluno. (3) Preencher os campos com as informações corretas. (4) Clicar em 'Criar novo aluno'.
+Resultado esperado  | O sistema deve mostrar o novo aluno na lista de alunos na página.
+Resultado do teste (para ser preenchido após a execução do teste) | SUCESSO.
+Descrição do resultado obtido  | Aluno foi cadastrado.
+Data da última execução do teste  | 05/06/2023.
+
+
