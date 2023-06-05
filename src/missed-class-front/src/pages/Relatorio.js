@@ -49,9 +49,9 @@ export default function Relatorio() {
           alunoNome: alunoCorrespondente.nome,
           data: aulaCorrespondente.data,
           chamada: aulaCorrespondente.chamada,
-          turma: aulaCorrespondente.turmaId,
-          turmaCodigo: turmaCorrespondente.codigo,
-          disiciplinaNome: disciplinaCorrespondente.nome
+          turma: aulaCorrespondente?.turmaId,
+          turmaCodigo: turmaCorrespondente?.codigo,
+          disiciplinaNome: disciplinaCorrespondente?.nome
         });
       }
     });
