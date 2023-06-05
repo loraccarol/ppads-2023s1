@@ -89,7 +89,9 @@ export default function Chamada() {
           alunoTia: faltantes[i]
         };
 
-        api.post('/faltas/falta/criar', faltaData);
+        api.post('/faltas/falta/criar', faltaData).then((respondeF) => {
+          console.log(respondeF.status);
+        });
 
       }
     });
