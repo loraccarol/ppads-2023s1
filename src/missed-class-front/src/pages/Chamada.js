@@ -80,7 +80,7 @@ export default function Chamada() {
     }
 
 
-    api.post('/aulas/aula/criar', aula).then((response) => {
+    api.post('/aulas/aula/criar', aula).then(async (response) => {
 
       for (var i = 0; i < faltantes.length; i++) {
 
@@ -89,7 +89,7 @@ export default function Chamada() {
           alunoTia: faltantes[i]
         };
 
-        api.post('/faltas/falta/criar', faltaData).then((respondeF) => {
+        await api.post('/faltas/falta/criar', faltaData).then((respondeF) => {
           console.log(respondeF.status);
         });
 
