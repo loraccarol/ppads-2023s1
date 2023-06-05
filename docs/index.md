@@ -139,4 +139,17 @@ Resultado do teste (para ser preenchido após a execução do teste) | SUCESSO.
 Descrição do resultado obtido  | Aluno foi cadastrado.
 Data da última execução do teste  | 05/06/2023.
 
+## CASO 02 - Registrar Faltas
+Informação   | Exemplo
+--------- | ------
+Identificação única | CASO 02
+Caso de uso em que se baseia | Registrar Faltas
+Cenário | Fluxo principal
+Preparação (descrição da condição do sistema no início do teste) | O professor deve estar cadastrado no sistema
+Passos para a execução do teste | (1) Escolher uma turma mostrada na lista. (2) Seleciona a turma desejada. (3) Selecionar o aluno da lista daquela turma. (4) Clicar no botão "Lançar falta". (5) O sistema exibe a lista de falta dos alunos faltantes daquele dia'.
+Resultado esperado  | O sistema deve registrar a falta do aluno.
+Resultado do teste (para ser preenchido após a execução do teste) | SUCESSO.
+Descrição do resultado obtido  | Foi registrado que o aluno recebeu falta.
+Data da última execução do teste  | 05/06/2023.
+
 
