@@ -36,19 +36,19 @@ export default function Relatorio() {
 
     let rows = [];
     faltasList.map((falta) => {
-      const aulaCorrespondente = aulasList.find((aula) => aula.id === falta.aulaId);
-      const alunoCorrespondente = alunosList.find((aluno) => aluno.tia === falta.alunoTia);
+      const aulaCorrespondente = aulasList.find((aula) => aula.id === falta?.aulaId);
+      const alunoCorrespondente = alunosList.find((aluno) => aluno.tia === falta?.alunoTia);
       const turmaCorrespondente = turmasList.find((turma) => turma.id === aulaCorrespondente?.turmaId);
       const disciplinaCorrespondente = disciplinasList.find((disciplina) => disciplina.codigo == aulaCorrespondente?.disciplinaCodigo)
     
       if (aulaCorrespondente) {
         rows.push({
-          id: falta.id,
-          aula: aulaCorrespondente.id,
-          alunoTia: falta.alunoTia,
-          alunoNome: alunoCorrespondente.nome,
-          data: aulaCorrespondente.data,
-          chamada: aulaCorrespondente.chamada,
+          id: falta?.id,
+          aula: aulaCorrespondente?.id,
+          alunoTia: falta?.alunoTia,
+          alunoNome: alunoCorrespondente?.nome,
+          data: aulaCorrespondente?.data,
+          chamada: aulaCorrespondente?.chamada,
           turma: aulaCorrespondente?.turmaId,
           turmaCodigo: turmaCorrespondente?.codigo,
           disiciplinaNome: disciplinaCorrespondente?.nome
