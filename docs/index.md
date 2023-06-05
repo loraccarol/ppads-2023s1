@@ -139,4 +139,42 @@ Resultado do teste (para ser preenchido após a execução do teste) | SUCESSO.
 Descrição do resultado obtido  | Aluno foi cadastrado.
 Data da última execução do teste  | 05/06/2023.
 
+## CASO 02 - Registrar Faltas
+Informação   | Exemplo
+--------- | ------
+Identificação única | CASO 02
+Caso de uso em que se baseia | Registrar Faltas
+Cenário | Fluxo principal
+Preparação (descrição da condição do sistema no início do teste) | O professor deve estar cadastrado no sistema
+Passos para a execução do teste | (1) Escolher uma turma mostrada na lista. (2) Seleciona a turma desejada. (3) Selecionar o aluno da lista daquela turma. (4) Clicar no botão "Lançar falta". (5) O sistema exibe a lista de falta dos alunos faltantes daquele dia'.
+Resultado esperado  | O sistema deve registrar a falta do aluno.
+Resultado do teste (para ser preenchido após a execução do teste) | SUCESSO.
+Descrição do resultado obtido  | Foi registrado que o aluno recebeu falta.
+Data da última execução do teste  | 05/06/2023.
+
+## CASO 03 - Gerar relatório
+Informação   | Exemplo
+--------- | ------
+Identificação única | CASO 03
+Caso de uso em que se baseia | Gerar relatório
+Cenário | Fluxo principal
+Preparação (descrição da condição do sistema no início do teste) | Relatório deve mostrar as informações de alunos que faltaram em certo dia/ chamada/ disciplina
+Passos para a execução do teste | (1) Entrar na aba relatório. (2) Visualizar informações dos alunos que faltaram.
+Resultado esperado  | O sistema deve mostrar todos as faltas que foram registradas no sistema.
+Resultado do teste (para ser preenchido após a execução do teste) | SUCESSO.
+Descrição do resultado obtido  | A lista apareceu corretamente.
+Data da última execução do teste  | 05/06/2023.
+
+## CASO 04 - Receber notificação
+Informação   | Exemplo
+--------- | ------
+Identificação única | CASO 04
+Caso de uso em que se baseia | Receber notificação
+Cenário | Fluxo principal
+Preparação (descrição da condição do sistema no início do teste) | Se caso algum aluno obter menos que 75% de presença, deverá ter um aviso para o responsável.
+Passos para a execução do teste | (1) Entrar na aba relatório. (2) Visualizar informações dos alunos que faltaram.
+Resultado esperado  | O sistema deve mostrar todos as faltas que foram registradas no sistema e mandar um aviso ao responsável.
+Resultado do teste (para ser preenchido após a execução do teste) | NÃO EXECUTADO.
+Descrição do resultado obtido  | A lista apareceu corretamente, porém não foi enviada a notificação.
+Data da última execução do teste  | 05/06/2023.
 
