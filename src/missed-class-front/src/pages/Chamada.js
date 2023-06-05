@@ -15,15 +15,15 @@ export default function Chamada() {
   const [disciplinasList, setDisciplinasList] = useState([]);
   const [turmasList, setTurmasList] = useState([]);
   const [alunosList, setAlunosList] = useState([]);
-  const [aula, setAula] = useState({
-      chamada: null,
-      data: date,
-      disciplinaCodigo: null,
-      turmaId: localStorage.getItem("turmaId")
-  })
+
   const today = new Date().toISOString().split('T')[0]; // Obtém a data atual no formato 'yyyy-mm-dd'
 
-  let turmaId = localStorage.getItem("turmaId");
+  const [aula, setAula] = useState({
+    chamada: null,
+    data: date,
+    disciplinaCodigo: null,
+    turmaId: localStorage.getItem("turmaId")
+  })
 
   useMemo(() => {
     api.get("/professores/").then((response) => {

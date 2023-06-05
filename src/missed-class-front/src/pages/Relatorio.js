@@ -38,7 +38,7 @@ export default function Relatorio() {
     faltasList.map((falta) => {
       const aulaCorrespondente = aulasList.find((aula) => aula.id === falta.aulaId);
       const alunoCorrespondente = alunosList.find((aluno) => aluno.tia === falta.alunoTia);
-      const turmaCorrespondente = turmasList.find((turma) => turma.id === aulaCorrespondente.turmaId);
+      const turmaCorrespondente = turmasList.find((turma) => turma.id === aulaCorrespondente?.turmaId);
       const disciplinaCorrespondente = disciplinasList.find((disciplina) => disciplina.codigo == aulaCorrespondente?.disciplinaCodigo)
     
       if (aulaCorrespondente) {
