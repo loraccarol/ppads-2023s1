@@ -18,11 +18,13 @@ export default function Chamada() {
 
   const today = new Date().toISOString().split('T')[0]; // Obtém a data atual no formato 'yyyy-mm-dd'
 
+  let turmaId = localStorage.getItem("turmaId");
+
   const [aula, setAula] = useState({
     chamada: null,
     data: date,
     disciplinaCodigo: null,
-    turmaId: localStorage.getItem("turmaId")
+    turmaId:turmaId
   })
 
   useMemo(() => {
