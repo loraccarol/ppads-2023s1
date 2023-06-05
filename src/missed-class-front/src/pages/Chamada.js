@@ -12,6 +12,7 @@ export default function Chamada() {
   const [faltantes, setFaltantes] = useState([]);
   const [date, setDate] = useState();
   const [professoresList, setProfessoresList] = useState([]);
+  const [disciplinasList, setDisciplinasList] = useState([]);
   const [turmasList, setTurmasList] = useState([]);
   const [alunosList, setAlunosList] = useState([]);
   const [aula, setAula] = useState({
@@ -36,6 +37,10 @@ export default function Chamada() {
     api.get("/alunos/" + turmaId).then((response) => {
       setAlunosList(response.data);
     });
+
+    api.get("/disciplinas/").then((response) => {
+      setDisciplinasList(response.data);
+    });
   }, []);
   
   const handleCheck = (event) => {
@@ -58,7 +63,7 @@ export default function Chamada() {
 
   const handleCriarAulaEFaltas = () => {
     
-    if (aula.chamada == null || aula.data == null) {
+    if (aula.chamada == null || aula.data == null || aula.disciplinaCodigo == null) {
       Swal.fire({
         customClass: {
           container: "swal",
@@ -74,9 +79,9 @@ export default function Chamada() {
       })
     }
 
+
     api.post('/aulas/aula/criar', aula).then((response) => {
-      console.log(response.data)
-      console.log(faltantes.length)
+
       for (var i = 0; i < faltantes.length; i++) {
 
         const faltaData = {
@@ -84,13 +89,13 @@ export default function Chamada() {
           alunoTia: faltantes[i]
         };
 
-        api.post('/faltas/falta/criar', faltaData).then((faltasresponse) => {
-          console.log(faltasresponse)
-        })
+        api.post('/faltas/falta/criar', faltaData);
 
       }
     });
   }
+
+  console.log(faltantes);
 
   const alunosColumns = [
     {
@@ -127,7 +132,6 @@ export default function Chamada() {
         container: "swal",
       },
       title: "Deseja lançar faltas?",
-      text: faltantes.map((f) => f.nome), 
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Confirmar",
@@ -141,8 +145,6 @@ export default function Chamada() {
       }
     });
   }
-
-console.log(faltantes)
 
   return (
     <Flex justifyContent={"center"}>
@@ -168,16 +170,24 @@ console.log(faltantes)
           </Flex>
           <Flex width={"100%"} justifyContent={"space-around"}>
 
-           <Flex borderRadius={"8px"} background={"white"} width={"40%"}>
+           <Flex borderRadius={"8px"} background={"white"} width={"30%"}>
               <Input name="data" type="date" max={today} onChange={handleChange}/>
             </Flex>
 
-            <Select name="chamada" background={"white"} width={"40%"} onChange={handleChange}>
-              <option>Selecione...</option>
+            <Select name="chamada" background={"white"} width={"30%"} onChange={handleChange}>
+              <option>Selecione a chamada</option>
               <option value={'1'}>Chamada 1</option>
               <option value={'2'}>Chamada 2</option>
             </Select> 
 
+            <Select name="disciplinaCodigo" background={"white"} width={"30%"} onChange={handleChange}>
+              <option>Selecione a disciplina</option>
+              {disciplinasList.map((disciplina) => {
+                return (
+                  <option key={disciplina.codigo} value={disciplina.codigo}>{disciplina.nome}</option>
+                )
+              })}
+            </Select> 
 
           </Flex>
         </GridItem>

@@ -25,6 +25,7 @@ public class Aula {
     private Long turmaId;
 
     @Column
+    @NotNull
     private String disciplinaCodigo;
 
     public Aula() {

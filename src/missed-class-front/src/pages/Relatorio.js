@@ -10,6 +10,7 @@ export default function Relatorio() {
     const [faltasList, setFaltasList] = useState([]);
     const [alunosList, setAlunosList] = useState([]);
     const [turmasList, setTurmasList] = useState([]);
+    const [disciplinasList, setDisciplinasList] = useState([]);
 
     useMemo(() =>{
         api.get('/aulas/').then((response) => {
@@ -27,6 +28,10 @@ export default function Relatorio() {
         api.get('/turmas/').then((response) => {
             setTurmasList(response.data)
         })
+
+        api.get('/disciplinas/').then((response) => {
+            setDisciplinasList(response.data)
+        })
     }, [])
 
     let rows = [];
@@ -34,6 +39,7 @@ export default function Relatorio() {
       const aulaCorrespondente = aulasList.find((aula) => aula.id === falta.aulaId);
       const alunoCorrespondente = alunosList.find((aluno) => aluno.tia === falta.alunoTia);
       const turmaCorrespondente = turmasList.find((turma) => turma.id === aulaCorrespondente.turmaId);
+      const disciplinaCorrespondente = disciplinasList.find((disciplina) => disciplina.codigo == aulaCorrespondente?.disciplinaCodigo)
     
       if (aulaCorrespondente) {
         rows.push({
@@ -44,16 +50,18 @@ export default function Relatorio() {
           data: aulaCorrespondente.data,
           chamada: aulaCorrespondente.chamada,
           turma: aulaCorrespondente.turmaId,
-          turmaCodigo: turmaCorrespondente.codigo
+          turmaCodigo: turmaCorrespondente.codigo,
+          disiciplinaNome: disciplinaCorrespondente.nome
         });
       }
     });
 
 
     const columns = [ 
+        { field: 'id',flex: 0.02 },
         { field: 'alunoTia', headerName: 'Tia', flex: 2 },
-        { field: 'alunoNome', headerName: 'Nome', flex: 2 },
-        { field: 'data', headerName: 'Aula', flex: 2, renderCell: (params) => {
+        { field: 'alunoNome', headerName: 'Nome aluno', flex: 2 },
+        { field: 'data', headerName: 'Data da aula', flex: 2, renderCell: (params) => {
             const dateObj = new Date(params.value);
             const formattedDate = `${dateObj.getDate()}-${dateObj.getMonth() + 1}-${dateObj.getFullYear()}`;
             return (
@@ -64,7 +72,9 @@ export default function Relatorio() {
         }},
         { field: 'chamada', headerName: 'Chamada', flex: 2},
         { field: 'turmaCodigo', headerName: 'Turma', flex: 2},
+        { field: 'disiciplinaNome', headerName: 'Disciplina', flex: 2},
     ]
+
 
     return (
         <Flex justifyContent={"center"}>
