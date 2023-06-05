@@ -80,21 +80,36 @@ export default function Chamada() {
     }
 
 
-    api.post('/aulas/aula/criar', aula).then(async (response) => {
+    api.post('/aulas/aula/criar', aula)
+    .then((response) => {
+      const promises = [];
+  
       for (var i = 0; i < faltantes.length; i++) {
         const faltaData = {
           aulaId: response.data.id,
           alunoTia: faltantes[i]
         };
   
-        try {
-          const respondeF = await api.post('/faltas/falta/criar', faltaData);
-          console.log(respondeF.status);
-        } catch (error) {
-          console.error(error);
-        }
+        const promise = api.post('/faltas/falta/criar', faltaData)
+          .then((respondeF) => {
+            console.log(respondeF.status);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+  
+        promises.push(promise);
       }
+  
+      Promise.all(promises)
+        .then(() => {
+          console.log('Todos os POSTs foram concluídos');
+        })
+        .catch((error) => {
+          console.error('Ocorreu um erro durante a execução das requisições:', error);
+        });
     });
+  
   
   }
 
