@@ -61,9 +61,11 @@ export default function Chamada() {
     });
   };
 
-  const handleCriarAulaEFaltas = () => {
-    
+  async function handleCriarAulaEFaltas() {
+    let isAulaValid = true;
+  
     if (aula.chamada == null || aula.data == null || aula.disciplinaCodigo == null) {
+      isAulaValid = false;
       Swal.fire({
         customClass: {
           container: "swal",
@@ -76,42 +78,28 @@ export default function Chamada() {
         confirmButtonColor: "black",
         cancelButtonText: "Cancelar",
         reverseButtons: true,
-      })
+      });
     }
 
+      const response = await api.post('/aulas/aula/criar', aula);
+      console.log(response.data);
+      if (isAulaValid) {
 
-    api.post('/aulas/aula/criar', aula)
-    .then((response) => {
-      const promises = [];
-  
-      for (var i = 0; i < faltantes.length; i++) {
-        const faltaData = {
-          aulaId: response.data.id,
-          alunoTia: faltantes[i]
-        };
-  
-        const promise = api.post('/faltas/falta/criar', faltaData)
-          .then((respondeF) => {
-            console.log(respondeF.status);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-  
-        promises.push(promise);
+        console.log("entrei");
+
+        for (var i = 0; i < faltantes.length; i++) {
+          const faltaData = {
+            aulaId: response.data.id,
+            alunoTia: faltantes[i]
+          };
+          const respondeF = await api.post('/faltas/falta/criar', faltaData);
+          console.log(respondeF.data);
+        }
       }
-  
-      Promise.all(promises)
-        .then(() => {
-          console.log('Todos os POSTs foram concluídos');
-        })
-        .catch((error) => {
-          console.error('Ocorreu um erro durante a execução das requisições:', error);
-        });
-    });
-  
-  
+
   }
+  
+  
 
   const alunosColumns = [
     {
@@ -156,8 +144,10 @@ export default function Chamada() {
       reverseButtons: true,
     }).then(async (result) => {
       if (result.isConfirmed) {
-        handleCriarAulaEFaltas();
-        window.location.href = "/relatorio";
+        handleCriarAulaEFaltas().then(() => {
+          window.location.href = "/relatorio";
+        });
+        
       }
     });
   }
