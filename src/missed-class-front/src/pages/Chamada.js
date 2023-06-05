@@ -81,23 +81,22 @@ export default function Chamada() {
 
 
     api.post('/aulas/aula/criar', aula).then(async (response) => {
-
       for (var i = 0; i < faltantes.length; i++) {
-
         const faltaData = {
           aulaId: response.data.id,
           alunoTia: faltantes[i]
         };
-
-        await api.post('/faltas/falta/criar', faltaData).then((respondeF) => {
+  
+        try {
+          const respondeF = await api.post('/faltas/falta/criar', faltaData);
           console.log(respondeF.status);
-        });
-
+        } catch (error) {
+          console.error(error);
+        }
       }
     });
+  
   }
-
-  console.log(faltantes);
 
   const alunosColumns = [
     {
